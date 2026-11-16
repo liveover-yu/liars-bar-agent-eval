@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="360" viewBox="0 0 760 360" role="img" aria-label="同一牌面跨枪膛的质疑率与门槛">
+<rect width="760" height="360" fill="#fcfcfb"/>
+<style>text{font-family:system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;}</style>
+<text x="24.0" y="28.0" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="600">枪膛越满，正确门槛越高——但模型的质疑率也在涨</text>
+<text x="24.0" y="46.0" font-size="11" fill="#898781" text-anchor="start" font-weight="400">「K, A, K, Joker, A 宣称 3×Q」：正确动作在 gun1 之后翻转成「不该质疑」，实测却一路升到 100%</text>
+<line x1="64" y1="296.0" x2="570" y2="296.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="54.0" y="300.0" font-size="10" fill="#898781" text-anchor="end" font-weight="400">0%</text>
+<line x1="64" y1="236.0" x2="570" y2="236.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="54.0" y="240.0" font-size="10" fill="#898781" text-anchor="end" font-weight="400">25%</text>
+<line x1="64" y1="176.0" x2="570" y2="176.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="54.0" y="180.0" font-size="10" fill="#898781" text-anchor="end" font-weight="400">50%</text>
+<line x1="64" y1="116.0" x2="570" y2="116.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="54.0" y="120.0" font-size="10" fill="#898781" text-anchor="end" font-weight="400">75%</text>
+<line x1="64" y1="56.0" x2="570" y2="56.0" stroke="#e1e0d9" stroke-width="1"/>
+<text x="54.0" y="60.0" font-size="10" fill="#898781" text-anchor="end" font-weight="400">100%</text>
+<line x1="64" y1="296.0" x2="570" y2="296.0" stroke="#c3c2b7" stroke-width="1"/>
+<text x="64.0" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun0</text>
+<text x="165.2" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun1</text>
+<text x="266.4" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun2</text>
+<text x="367.6" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun3</text>
+<text x="468.8" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun4</text>
+<text x="570.0" y="316.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">gun5</text>
+<text x="317.0" y="346.0" font-size="11" fill="#898781" text-anchor="middle" font-weight="400">自己已开枪数（下一枪命中概率 1/(6−g)）</text>
+<polyline points="64.0,176.0 165.2,165.1 266.4,152.0 367.6,136.0 468.8,116.0 570.0,90.3" fill="none" stroke="#eb6834" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="0"/>
+<polyline points="64.0,200.0 165.2,104.0 266.4,56.0 367.6,56.0 468.8,56.0 570.0,56.0" fill="none" stroke="#2a78d6" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+<circle cx="64.0" cy="200.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="165.2" cy="104.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="266.4" cy="56.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="367.6" cy="56.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="468.8" cy="56.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<circle cx="570.0" cy="56.0" r="4" fill="#2a78d6" stroke="#fcfcfb" stroke-width="2"/>
+<text x="580.0" y="60.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">实测质疑率 100%</text>
+<text x="580.0" y="94.3" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">质疑门槛 86%</text>
+<line x1="64" y1="330" x2="82" y2="330" stroke="#2a78d6" stroke-width="2"/>
+<text x="88.0" y="334.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="400">模型实测质疑率</text>
+<line x1="214" y1="330" x2="232" y2="330" stroke="#eb6834" stroke-width="2"/>
+<text x="238.0" y="334.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="400">盈亏平衡门槛 p*</text>
+</svg>

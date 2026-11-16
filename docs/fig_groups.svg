@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="300" viewBox="0 0 760 300" role="img" aria-label="该质疑组与不该质疑组的质疑率">
+<rect width="760" height="300" fill="#fcfcfb"/>
+<style>text{font-family:system-ui, -apple-system, "Segoe UI", "Microsoft YaHei", sans-serif;}</style>
+<text x="24.0" y="28.0" font-size="15" fill="#0b0b0b" text-anchor="start" font-weight="600">区分度是负的：该质疑时反而回避，不该质疑时反而激进</text>
+<text x="24.0" y="46.0" font-size="11" fill="#898781" text-anchor="start" font-weight="400">按「被迫诈唬下界 vs 门槛」分组后合并全部 240 次调用</text>
+<line x1="150.0" y1="54" x2="150.0" y2="244" stroke="#e1e0d9" stroke-width="1"/>
+<text x="150.0" y="262.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">0%</text>
+<line x1="272.5" y1="54" x2="272.5" y2="244" stroke="#e1e0d9" stroke-width="1"/>
+<text x="272.5" y="262.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">25%</text>
+<line x1="395.0" y1="54" x2="395.0" y2="244" stroke="#e1e0d9" stroke-width="1"/>
+<text x="395.0" y="262.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">50%</text>
+<line x1="517.5" y1="54" x2="517.5" y2="244" stroke="#e1e0d9" stroke-width="1"/>
+<text x="517.5" y="262.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">75%</text>
+<line x1="640.0" y1="54" x2="640.0" y2="244" stroke="#e1e0d9" stroke-width="1"/>
+<text x="640.0" y="262.0" font-size="10" fill="#898781" text-anchor="middle" font-weight="400">100%</text>
+<text x="138.0" y="82.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="400">生存威胁版 · 该质疑组</text>
+<path d="M150.0,70.0 h41.2 a4,4 0 0 1 4,4 v12.0 a4,4 0 0 1 -4,4 h-41.2 z" fill="#2a78d6"/>
+<text x="203.2" y="82.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">9.2%</text>
+<text x="138.0" y="128.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="400">生存威胁版 · 不该质疑组</text>
+<path d="M150.0,116.0 h194.8 a4,4 0 0 1 4,4 v12.0 a4,4 0 0 1 -4,4 h-194.8 z" fill="#eb6834"/>
+<text x="356.8" y="128.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">40.6%</text>
+<text x="138.0" y="174.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="400">中性版 · 该质疑组</text>
+<path d="M150.0,162.0 h26.2 a4,4 0 0 1 4,4 v12.0 a4,4 0 0 1 -4,4 h-26.2 z" fill="#2a78d6"/>
+<text x="188.2" y="174.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">6.2%</text>
+<text x="138.0" y="220.0" font-size="11" fill="#52514e" text-anchor="end" font-weight="400">中性版 · 不该质疑组</text>
+<path d="M150.0,208.0 h175.2 a4,4 0 0 1 4,4 v12.0 a4,4 0 0 1 -4,4 h-175.2 z" fill="#eb6834"/>
+<text x="337.2" y="220.0" font-size="11" fill="#0b0b0b" text-anchor="start" font-weight="600">36.6%</text>
+<rect x="150" y="277" width="10" height="10" rx="3" fill="#2a78d6"/>
+<text x="166.0" y="286.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="400">该质疑（下界 ≥ 门槛）</text>
+<rect x="360" y="277" width="10" height="10" rx="3" fill="#eb6834"/>
+<text x="376.0" y="286.0" font-size="11" fill="#52514e" text-anchor="start" font-weight="400">不该质疑（下界 &lt; 门槛）</text>
+</svg>
