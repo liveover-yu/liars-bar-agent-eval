@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#183a34">
+  <title>骗子酒馆 · 离线牌桌</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="site-header">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"><span>♠</span><span>♣</span></span>
+        <div>
+          <p class="brand-name">骗子酒馆</p>
+          <p class="brand-subtitle">离线牌桌</p>
+        </div>
+      </div>
+      <p id="connection-status" class="connection-status" role="status">准备入座</p>
+    </header>
+
+    <main>
+      <section id="entry-screen" class="entry-screen" aria-labelledby="entry-title">
+        <div class="entry-story">
+          <div class="story-art" aria-hidden="true">
+            <span class="story-card story-card-one">Q</span>
+            <span class="story-card story-card-two">?</span>
+            <span class="story-card story-card-three">A</span>
+          </div>
+          <div class="entry-copy">
+            <h1 id="entry-title">四个席位，一张牌桌。</h1>
+            <p>每个人在自己的浏览器里看牌。出牌时可以说真话，也可以试着骗过下一位玩家。</p>
+          </div>
+        </div>
+        <div class="entry-actions">
+          <h2>坐下来，开始一局</h2>
+          <p>创建房间后，把邀请链接发给另外三位玩家。</p>
+          <div id="entry-error" class="message message-error" role="alert" hidden></div>
+          <button id="create-room" class="button button-primary button-wide" type="button">创建房间</button>
+          <div class="entry-divider"><span>已有房间</span></div>
+          <form id="join-form" novalidate>
+            <label for="room-code-input">房间码</label>
+            <div class="join-row">
+              <input id="room-code-input" name="room-code" type="text" inputmode="text" autocapitalize="characters" autocomplete="off" spellcheck="false" maxlength="12" placeholder="输入房间码" required>
+              <button id="join-room" class="button button-secondary" type="submit">加入</button>
+            </div>
+          </form>
+          <p class="entry-note">本地运行，不调用付费 API。请用不同标签页或设备分别入座。</p>
+        </div>
+      </section>
+
+      <section id="game-screen" class="game-screen" aria-labelledby="room-title" hidden>
+        <div class="room-toolbar">
+          <div class="room-heading">
+            <p class="room-kicker">你已入座</p>
+            <h1 id="room-title">房间 <span id="room-code"></span></h1>
+            <p id="my-seat" class="my-seat"></p>
+          </div>
+          <div class="room-tools">
+            <button id="copy-code" class="button button-quiet" type="button">复制房间码</button>
+            <button id="copy-link" class="button button-quiet" type="button">复制邀请链接</button>
+            <button id="refresh-state" class="button button-quiet" type="button">刷新牌局</button>
+          </div>
+        </div>
+
+        <div id="error-message" class="message message-error" role="alert" hidden></div>
+
+        <div class="table-meta">
+          <p id="phase-label" class="phase-label">等待玩家入座</p>
+          <p id="round-label" class="round-label"></p>
+        </div>
+
+        <div class="table-field" aria-label="四人牌桌">
+          <div class="table-felt" aria-hidden="true"></div>
+          <div class="seat seat-north" data-seat-index="0"></div>
+          <div class="seat seat-west" data-seat-index="3"></div>
+          <div class="table-center">
+            <p class="center-caption">本局目标牌</p>
+            <div id="target-card" class="target-card" aria-live="polite">—</div>
+            <p id="turn-indicator" class="turn-indicator">等候开局</p>
+          </div>
+          <div class="seat seat-east" data-seat-index="1"></div>
+          <div class="seat seat-south" data-seat-index="2"></div>
+        </div>
+
+        <p id="game-notice" class="message message-notice" role="status" aria-live="polite">等待其他玩家加入。</p>
+
+        <div id="result-panel" class="result-panel" hidden>
+          <div>
+            <p class="result-heading">这次翻牌</p>
+            <p id="result-summary" class="result-summary"></p>
+          </div>
+          <div id="result-cards" class="result-cards" aria-label="翻开的牌"></div>
+        </div>
+
+        <section id="hand-panel" class="hand-panel" aria-labelledby="hand-title">
+          <div class="hand-heading">
+            <div>
+              <h2 id="hand-title">我的手牌</h2>
+              <p id="hand-count" class="hand-count"></p>
+            </div>
+            <button id="toggle-hand" class="button button-secondary" type="button" aria-expanded="false">查看我的手牌</button>
+          </div>
+          <div id="hand-list" class="hand-list" role="group" aria-label="我的手牌"></div>
+        </section>
+
+        <section id="action-panel" class="action-panel" aria-labelledby="action-title">
+          <div class="action-copy">
+            <h2 id="action-title">等待开局</h2>
+            <p id="action-help">四位玩家入座后，房主可以开局。</p>
+          </div>
+          <div class="action-buttons">
+            <button id="start-game" class="button button-primary" type="button" hidden>开始牌局</button>
+            <button id="play-cards" class="button button-primary" type="button" hidden>打出所选牌</button>
+            <button id="challenge-play" class="button button-danger" type="button" hidden>质疑上一手</button>
+            <button id="pass-challenge" class="button button-secondary" type="button" hidden>不质疑</button>
+            <button id="advance-round" class="button button-primary" type="button" hidden>开始下一局</button>
+            <button id="restart-game" class="button button-primary" type="button" hidden>重新开局</button>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">牌面和枪位由服务器保管。这里只显示你的手牌和牌桌上的公开信息。</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,2335 @@
+{
+  "corpus": {
+    "games": 50,
+    "rounds": 610,
+    "decisions": 1100,
+    "system_challenges": 1,
+    "wins": {
+      "DeepSeek": 22,
+      "Claude": 13,
+      "ChatGPT": 11,
+      "Gemini": 4
+    },
+    "win_rate": {
+      "DeepSeek": 0.44,
+      "Claude": 0.26,
+      "ChatGPT": 0.22,
+      "Gemini": 0.08
+    }
+  },
+  "rates": {
+    "bluff": {
+      "k": 207,
+      "n": 1100,
+      "lo": 0.166183526813064,
+      "hi": 0.21235049473495513,
+      "p": 0.18818181818181817
+    },
+    "challenge": {
+      "k": 609,
+      "n": 1100,
+      "lo": 0.5241226601556697,
+      "hi": 0.5827767355547293,
+      "p": 0.5536363636363636
+    },
+    "challenge_accuracy": {
+      "k": 134,
+      "n": 609,
+      "lo": 0.18894165189145207,
+      "hi": 0.2546339800499827,
+      "p": 0.2200328407224959
+    },
+    "missed_bluff": {
+      "k": 73,
+      "n": 491,
+      "lo": 0.11993852558718743,
+      "hi": 0.18286867574754279,
+      "p": 0.14867617107942974
+    }
+  },
+  "clustered": {
+    "challenge_rate": [
+      0.5536363636363636,
+      0.525142187691711,
+      0.5834846057832328
+    ],
+    "bluff_rate": [
+      0.18818181818181817,
+      0.16944541289746476,
+      0.20917443338704586
+    ]
+  },
+  "signal": {
+    "p_bluff_given_challenge": 0.2200328407224959,
+    "p_bluff_given_pass": 0.14867617107942974,
+    "lift": 0.07135666964306617,
+    "permutation_p": 0.00275,
+    "base_rate": 0.18818181818181817
+  },
+  "by_challenger_gun": {
+    "0": {
+      "k": 218,
+      "n": 507,
+      "lo": 0.3875715032952084,
+      "hi": 0.4734421651296027,
+      "p": 0.42998027613412226
+    },
+    "1": {
+      "k": 158,
+      "n": 252,
+      "lo": 0.5657866188918861,
+      "hi": 0.6843681643802635,
+      "p": 0.626984126984127
+    },
+    "2": {
+      "k": 105,
+      "n": 144,
+      "lo": 0.651330297136616,
+      "hi": 0.7950934428661977,
+      "p": 0.7291666666666666
+    },
+    "3": {
+      "k": 79,
+      "n": 123,
+      "lo": 0.5544380921577126,
+      "hi": 0.7214966169598009,
+      "p": 0.6422764227642277
+    },
+    "4": {
+      "k": 38,
+      "n": 59,
+      "lo": 0.5165525967226601,
+      "hi": 0.7539688413056522,
+      "p": 0.6440677966101694
+    },
+    "5": {
+      "k": 11,
+      "n": 15,
+      "lo": 0.4804911034231324,
+      "hi": 0.8910272389681718,
+      "p": 0.7333333333333333
+    }
+  },
+  "by_actor_gun": {
+    "0": {
+      "k": 145,
+      "n": 381,
+      "lo": 0.33324502486068963,
+      "hi": 0.43029405199586646,
+      "p": 0.3805774278215223
+    },
+    "1": {
+      "k": 163,
+      "n": 284,
+      "lo": 0.5158204775992812,
+      "hi": 0.6300931082062453,
+      "p": 0.573943661971831
+    },
+    "2": {
+      "k": 132,
+      "n": 188,
+      "lo": 0.6332382050308935,
+      "hi": 0.7629219604389524,
+      "p": 0.7021276595744681
+    },
+    "3": {
+      "k": 96,
+      "n": 145,
+      "lo": 0.5817803799119106,
+      "hi": 0.733991554816015,
+      "p": 0.6620689655172414
+    },
+    "4": {
+      "k": 57,
+      "n": 79,
+      "lo": 0.6141734225170346,
+      "hi": 0.8083196244545352,
+      "p": 0.7215189873417721
+    },
+    "5": {
+      "k": 16,
+      "n": 23,
+      "lo": 0.49133870939427393,
+      "hi": 0.8439617197902755,
+      "p": 0.6956521739130435
+    }
+  },
+  "by_k": {
+    "1": {
+      "k": 73,
+      "n": 423,
+      "lo": 0.13955368695108222,
+      "hi": 0.21149363364747237,
+      "p": 0.17257683215130024
+    },
+    "2": {
+      "k": 92,
+      "n": 506,
+      "lo": 0.15065018136230898,
+      "hi": 0.21778111180796192,
+      "p": 0.18181818181818182
+    },
+    "3": {
+      "k": 42,
+      "n": 171,
+      "lo": 0.18715368303950147,
+      "hi": 0.3152530668415337,
+      "p": 0.24561403508771928
+    }
+  },
+  "by_challenger": {
+    "ChatGPT": {
+      "decisions": 282,
+      "challenge_rate": {
+        "k": 171,
+        "n": 282,
+        "lo": 0.5482977267112696,
+        "hi": 0.661608738967624,
+        "p": 0.6063829787234043
+      },
+      "bluff_rate": {
+        "k": 50,
+        "n": 282,
+        "lo": 0.13715347163855088,
+        "hi": 0.22613024913547222,
+        "p": 0.1773049645390071
+      },
+      "challenge_accuracy": {
+        "k": 36,
+        "n": 171,
+        "lo": 0.15612237856338523,
+        "hi": 0.2776508195771031,
+        "p": 0.21052631578947367
+      },
+      "avg_cards_per_play": 1.9078014184397163
+    },
+    "Claude": {
+      "decisions": 258,
+      "challenge_rate": {
+        "k": 124,
+        "n": 258,
+        "lo": 0.42038641464006726,
+        "hi": 0.5414225568908126,
+        "p": 0.4806201550387597
+      },
+      "bluff_rate": {
+        "k": 21,
+        "n": 258,
+        "lo": 0.05385149248302709,
+        "hi": 0.12122229258397527,
+        "p": 0.08139534883720931
+      },
+      "challenge_accuracy": {
+        "k": 14,
+        "n": 124,
+        "lo": 0.06845536936986271,
+        "hi": 0.18061535565235226,
+        "p": 0.11290322580645161
+      },
+      "avg_cards_per_play": 1.624031007751938
+    },
+    "DeepSeek": {
+      "decisions": 299,
+      "challenge_rate": {
+        "k": 153,
+        "n": 299,
+        "lo": 0.45525818522489564,
+        "hi": 0.5678562085704086,
+        "p": 0.5117056856187291
+      },
+      "bluff_rate": {
+        "k": 87,
+        "n": 299,
+        "lo": 0.24239585762260646,
+        "hi": 0.3448471103183897,
+        "p": 0.2909698996655518
+      },
+      "challenge_accuracy": {
+        "k": 54,
+        "n": 153,
+        "lo": 0.28166562216892366,
+        "hi": 0.43142070186755654,
+        "p": 0.35294117647058826
+      },
+      "avg_cards_per_play": 1.7224080267558528
+    },
+    "Gemini": {
+      "decisions": 261,
+      "challenge_rate": {
+        "k": 161,
+        "n": 261,
+        "lo": 0.556587499736491,
+        "hi": 0.6737388538272995,
+        "p": 0.6168582375478927
+      },
+      "bluff_rate": {
+        "k": 49,
+        "n": 261,
+        "lo": 0.1450198286526404,
+        "hi": 0.23951794789001757,
+        "p": 0.18773946360153257
+      },
+      "challenge_accuracy": {
+        "k": 30,
+        "n": 161,
+        "lo": 0.13375556058308333,
+        "hi": 0.25353502625907304,
+        "p": 0.18633540372670807
+      },
+      "avg_cards_per_play": 1.8237547892720307
+    }
+  },
+  "by_actor": {
+    "ChatGPT": {
+      "decisions": 251,
+      "challenge_rate": {
+        "k": 119,
+        "n": 251,
+        "lo": 0.4131860603753045,
+        "hi": 0.5358018599642321,
+        "p": 0.47410358565737054
+      },
+      "bluff_rate": {
+        "k": 19,
+        "n": 251,
+        "lo": 0.048993081555848916,
+        "hi": 0.11519361323809371,
+        "p": 0.07569721115537849
+      },
+      "challenge_accuracy": {
+        "k": 12,
+        "n": 119,
+        "lo": 0.058629716308506635,
+        "hi": 0.16801663150851956,
+        "p": 0.10084033613445378
+      },
+      "avg_cards_per_play": 1.6254980079681276
+    },
+    "Claude": {
+      "decisions": 285,
+      "challenge_rate": {
+        "k": 166,
+        "n": 285,
+        "lo": 0.5244755422289674,
+        "hi": 0.6382434013027124,
+        "p": 0.5824561403508772
+      },
+      "bluff_rate": {
+        "k": 61,
+        "n": 285,
+        "lo": 0.17038477214785974,
+        "hi": 0.2652920832635492,
+        "p": 0.21403508771929824
+      },
+      "challenge_accuracy": {
+        "k": 38,
+        "n": 166,
+        "lo": 0.17156416584910963,
+        "hi": 0.29853032219151165,
+        "p": 0.2289156626506024
+      },
+      "avg_cards_per_play": 1.8350877192982455
+    },
+    "DeepSeek": {
+      "decisions": 297,
+      "challenge_rate": {
+        "k": 180,
+        "n": 297,
+        "lo": 0.5494743026699777,
+        "hi": 0.6599382253846532,
+        "p": 0.6060606060606061
+      },
+      "bluff_rate": {
+        "k": 43,
+        "n": 297,
+        "lo": 0.10929599281112556,
+        "hi": 0.18933823862495242,
+        "p": 0.1447811447811448
+      },
+      "challenge_accuracy": {
+        "k": 33,
+        "n": 180,
+        "lo": 0.13362624296924455,
+        "hi": 0.24627471524695896,
+        "p": 0.18333333333333332
+      },
+      "avg_cards_per_play": 1.878787878787879
+    },
+    "Gemini": {
+      "decisions": 267,
+      "challenge_rate": {
+        "k": 144,
+        "n": 267,
+        "lo": 0.47940173174127076,
+        "hi": 0.5981343631570019,
+        "p": 0.5393258426966292
+      },
+      "bluff_rate": {
+        "k": 84,
+        "n": 267,
+        "lo": 0.2618704047214822,
+        "hi": 0.37260229075808965,
+        "p": 0.3146067415730337
+      },
+      "challenge_accuracy": {
+        "k": 51,
+        "n": 144,
+        "lo": 0.2807687889835203,
+        "hi": 0.4351433764692346,
+        "p": 0.3541666666666667
+      },
+      "avg_cards_per_play": 1.7191011235955056
+    }
+  },
+  "by_round_players": {
+    "2": {
+      "decisions": 222,
+      "bluff_rate": {
+        "k": 46,
+        "n": 222,
+        "lo": 0.15909243062159223,
+        "hi": 0.2652828837580437,
+        "p": 0.2072072072072072
+      },
+      "challenge_rate": {
+        "k": 140,
+        "n": 222,
+        "lo": 0.5654228062355482,
+        "hi": 0.6913943611950757,
+        "p": 0.6306306306306306
+      },
+      "challenge_accuracy": {
+        "k": 31,
+        "n": 140,
+        "lo": 0.16060708217700126,
+        "hi": 0.29712976168457983,
+        "p": 0.22142857142857142
+      }
+    },
+    "3": {
+      "decisions": 349,
+      "bluff_rate": {
+        "k": 71,
+        "n": 349,
+        "lo": 0.1645391616508605,
+        "hi": 0.24879532045102318,
+        "p": 0.2034383954154728
+      },
+      "challenge_rate": {
+        "k": 207,
+        "n": 349,
+        "lo": 0.5408402979162217,
+        "hi": 0.6433783429696602,
+        "p": 0.5931232091690545
+      },
+      "challenge_accuracy": {
+        "k": 55,
+        "n": 207,
+        "lo": 0.21019428439166865,
+        "hi": 0.32974470298084235,
+        "p": 0.26570048309178745
+      }
+    },
+    "4": {
+      "decisions": 529,
+      "bluff_rate": {
+        "k": 90,
+        "n": 529,
+        "lo": 0.14051732521873367,
+        "hi": 0.20450378424419113,
+        "p": 0.17013232514177692
+      },
+      "challenge_rate": {
+        "k": 262,
+        "n": 529,
+        "lo": 0.4528552359161851,
+        "hi": 0.5377611123569228,
+        "p": 0.4952741020793951
+      },
+      "challenge_accuracy": {
+        "k": 48,
+        "n": 262,
+        "lo": 0.14105729825323926,
+        "hi": 0.23451070916170252,
+        "p": 0.183206106870229
+      }
+    }
+  },
+  "policies": [
+    {
+      "name": "never",
+      "challenges": 0,
+      "decisions": 1100,
+      "challenge_rate": 0.0,
+      "accuracy": 0.0,
+      "recall": 0.0,
+      "ev_per_100": 0.0,
+      "self_deaths": 0.0,
+      "actor_deaths": 0.0
+    },
+    {
+      "name": "ev_rational",
+      "challenges": 14,
+      "decisions": 1100,
+      "challenge_rate": 0.012727272727272728,
+      "accuracy": 0.7142857142857143,
+      "recall": 0.04830917874396135,
+      "ev_per_100": 0.4590909090909091,
+      "self_deaths": 0.8666666666666666,
+      "actor_deaths": 5.916666666666667
+    },
+    {
+      "name": "gun_monotone",
+      "challenges": 507,
+      "decisions": 1100,
+      "challenge_rate": 0.46090909090909093,
+      "accuracy": 0.17357001972386588,
+      "recall": 0.4251207729468599,
+      "ev_per_100": -4.780303030303009,
+      "self_deaths": 69.83333333333313,
+      "actor_deaths": 17.249999999999986
+    },
+    {
+      "name": "llm_actual",
+      "challenges": 609,
+      "decisions": 1100,
+      "challenge_rate": 0.5536363636363636,
+      "accuracy": 0.2200328407224959,
+      "recall": 0.6473429951690821,
+      "ev_per_100": -7.431818181818209,
+      "self_deaths": 119.43333333333376,
+      "actor_deaths": 37.68333333333335
+    },
+    {
+      "name": "always",
+      "challenges": 1100,
+      "decisions": 1100,
+      "challenge_rate": 1.0,
+      "accuracy": 0.18818181818181817,
+      "recall": 1.0,
+      "ev_per_100": -14.018181818181791,
+      "self_deaths": 209.866666666665,
+      "actor_deaths": 55.66666666666671
+    },
+    {
+      "name": "ev_empirical",
+      "challenges": 31,
+      "decisions": 1100,
+      "challenge_rate": 0.028181818181818183,
+      "accuracy": 0.45161290322580644,
+      "recall": 0.06763285024154589,
+      "ev_per_100": 0.4287878787878789,
+      "self_deaths": 4.616666666666667,
+      "actor_deaths": 9.333333333333332
+    }
+  ],
+  "oracle_ev_per_100": 5.060606060606064,
+  "logit_challenge": {
+    "terms": [
+      "intercept",
+      "challenger_gun",
+      "actor_gun",
+      "round_id",
+      "round_players"
+    ],
+    "beta": [
+      -0.665195024195256,
+      0.06392367698324933,
+      0.23027458338587123,
+      0.04865666502862398,
+      0.06357797200613564
+    ],
+    "se": [
+      0.4282354296706209,
+      0.09094165885054369,
+      0.08415544268692508,
+      0.04083712420914333,
+      0.10298934153416917
+    ],
+    "z": [
+      -1.5533395373355576,
+      0.7029086316569556,
+      2.7363005413985912,
+      1.19148118215753,
+      0.6173257451601644
+    ]
+  },
+  "probe": [
+    {
+      "file": "probe_calib_deepseek_chat.json",
+      "model": "deepseek-chat",
+      "rule_base": "threat",
+      "repeats": 5,
+      "calls": 240,
+      "format_failures": 0,
+      "should_yes": {
+        "p": 0.09230769230769231,
+        "n": 65,
+        "lo": 0.04299450413746196,
+        "hi": 0.18712216950173294
+      },
+      "should_no": {
+        "p": 0.4057142857142857,
+        "n": 175,
+        "lo": 0.335744724282434,
+        "hi": 0.47973444834854223
+      },
+      "gap": -0.3134065934065934,
+      "permutation_p": 0.0,
+      "by_case": {
+        "noQ_1_gun0": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.5,
+          "margin": -0.4813519813519813,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun1": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.5268065268065267,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun2": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.5813519813519814,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun3": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.648018648018648,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun4": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.75,
+          "margin": -0.7313519813519813,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun5": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.8384948384948384,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun0": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.5,
+          "margin": -0.31818181818181823,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun1": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.36363636363636365,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun2": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.4181818181818183,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun3": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.48484848484848486,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun4": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.75,
+          "margin": -0.5681818181818182,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun5": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.6753246753246753,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_3_gun0": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.5,
+          "margin": 0.07342657342657344,
+          "rational": true,
+          "challenge_rate": 0.4
+        },
+        "noQ_3_gun1": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.027972027972028024,
+          "rational": true,
+          "challenge_rate": 0.8
+        },
+        "noQ_3_gun2": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.02657342657342665,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_3_gun3": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.09324009324009319,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_3_gun4": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.75,
+          "margin": -0.17657342657342656,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_3_gun5": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.28371628371628366,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A2_gun0": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.5,
+          "margin": -0.3997668997668997,
+          "rational": false,
+          "challenge_rate": 0.2
+        },
+        "noQ_A2_gun1": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.44522144522144513,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A2_gun2": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.4997668997668998,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A2_gun3": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.5664335664335663,
+          "rational": false,
+          "challenge_rate": 0.2
+        },
+        "noQ_A2_gun4": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.75,
+          "margin": -0.6497668997668997,
+          "rational": false,
+          "challenge_rate": 0.8
+        },
+        "noQ_A2_gun5": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.7569097569097568,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun0": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.5,
+          "margin": -0.07342657342657344,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun1": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.11888111888111885,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun2": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.17342657342657353,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun3": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.24009324009324007,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun4": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.75,
+          "margin": -0.32342657342657344,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun5": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.43056943056943053,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "AJJ_2_gun0": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.5,
+          "margin": -0.20629370629370625,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun1": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.25174825174825166,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun2": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.30629370629370634,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun3": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.3729603729603729,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun4": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.75,
+          "margin": -0.45629370629370625,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun5": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.5634365634365633,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun0": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.5,
+          "margin": 0.2582417582417582,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun1": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.2127872127872128,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun2": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.6000000000000001,
+          "margin": 0.15824175824175812,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun3": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.6666666666666666,
+          "margin": 0.09157509157509158,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun4": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.75,
+          "margin": 0.008241758241758212,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun5": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.09890109890109888,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun0": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.5,
+          "margin": 0.478021978021978,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun1": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.4325674325674326,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun2": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.6000000000000001,
+          "margin": 0.3780219780219779,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun3": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.6666666666666666,
+          "margin": 0.31135531135531136,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun4": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.75,
+          "margin": 0.228021978021978,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun5": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.8571428571428571,
+          "margin": 0.1208791208791209,
+          "rational": true,
+          "challenge_rate": 0.0
+        }
+      }
+    },
+    {
+      "file": "probe_calib_deepseek_chat.json",
+      "model": "deepseek-chat",
+      "rule_base": "neutral",
+      "repeats": 5,
+      "calls": 240,
+      "format_failures": 0,
+      "should_yes": {
+        "p": 0.06153846153846154,
+        "n": 65,
+        "lo": 0.024188663436562223,
+        "hi": 0.14782360821313795
+      },
+      "should_no": {
+        "p": 0.3657142857142857,
+        "n": 175,
+        "lo": 0.2979511863838482,
+        "hi": 0.4392464231208755
+      },
+      "gap": -0.30417582417582417,
+      "permutation_p": 0.0,
+      "by_case": {
+        "noQ_1_gun0": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.5,
+          "margin": -0.4813519813519813,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun1": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.5268065268065267,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun2": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.5813519813519814,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun3": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.648018648018648,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun4": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.75,
+          "margin": -0.7313519813519813,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_1_gun5": {
+          "board": "noQ_1",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 1,
+          "bluff_floor": 0.018648018648018683,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.8384948384948384,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun0": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.5,
+          "margin": -0.31818181818181823,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun1": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.36363636363636365,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun2": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.4181818181818183,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun3": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.48484848484848486,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun4": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.75,
+          "margin": -0.5681818181818182,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "noQ_2_gun5": {
+          "board": "noQ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.18181818181818177,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.6753246753246753,
+          "rational": false,
+          "challenge_rate": 0.2
+        },
+        "noQ_3_gun0": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.5,
+          "margin": 0.07342657342657344,
+          "rational": true,
+          "challenge_rate": 0.4
+        },
+        "noQ_3_gun1": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.027972027972028024,
+          "rational": true,
+          "challenge_rate": 0.4
+        },
+        "noQ_3_gun2": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.02657342657342665,
+          "rational": false,
+          "challenge_rate": 0.4
+        },
+        "noQ_3_gun3": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.09324009324009319,
+          "rational": false,
+          "challenge_rate": 0.8
+        },
+        "noQ_3_gun4": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.75,
+          "margin": -0.17657342657342656,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_3_gun5": {
+          "board": "noQ_3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "A",
+            "K",
+            "Joker",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.5734265734265734,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.28371628371628366,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A2_gun0": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.5,
+          "margin": -0.3997668997668997,
+          "rational": false,
+          "challenge_rate": 0.2
+        },
+        "noQ_A2_gun1": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.44522144522144513,
+          "rational": false,
+          "challenge_rate": 0.2
+        },
+        "noQ_A2_gun2": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.4997668997668998,
+          "rational": false,
+          "challenge_rate": 0.6
+        },
+        "noQ_A2_gun3": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.5664335664335663,
+          "rational": false,
+          "challenge_rate": 0.6
+        },
+        "noQ_A2_gun4": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.75,
+          "margin": -0.6497668997668997,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A2_gun5": {
+          "board": "noQ_A2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.10023310023310028,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.7569097569097568,
+          "rational": false,
+          "challenge_rate": 0.8
+        },
+        "noQ_A3_gun0": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.5,
+          "margin": -0.07342657342657344,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun1": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.11888111888111885,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun2": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.17342657342657353,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun3": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.24009324009324007,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun4": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.75,
+          "margin": -0.32342657342657344,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "noQ_A3_gun5": {
+          "board": "noQ_A3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "A",
+            "A",
+            "A",
+            "A",
+            "A"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.42657342657342656,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.43056943056943053,
+          "rational": false,
+          "challenge_rate": 1.0
+        },
+        "AJJ_2_gun0": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.5,
+          "margin": -0.20629370629370625,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun1": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.5454545454545454,
+          "margin": -0.25174825174825166,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun2": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.6000000000000001,
+          "margin": -0.30629370629370634,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun3": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.6666666666666666,
+          "margin": -0.3729603729603729,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun4": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.75,
+          "margin": -0.45629370629370625,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "AJJ_2_gun5": {
+          "board": "AJJ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "K",
+            "K",
+            "K",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.29370629370629375,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.5634365634365633,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun0": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.5,
+          "margin": 0.2582417582417582,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun1": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.2127872127872128,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun2": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.6000000000000001,
+          "margin": 0.15824175824175812,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun3": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.6666666666666666,
+          "margin": 0.09157509157509158,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun4": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.75,
+          "margin": 0.008241758241758212,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQQ_2_gun5": {
+          "board": "QQQ_2",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Q",
+            "Q"
+          ],
+          "claim_count": 2,
+          "bluff_floor": 0.7582417582417582,
+          "breakeven": 0.8571428571428571,
+          "margin": -0.09890109890109888,
+          "rational": false,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun0": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 0,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.5,
+          "margin": 0.478021978021978,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun1": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 1,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.5454545454545454,
+          "margin": 0.4325674325674326,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun2": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 2,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.6000000000000001,
+          "margin": 0.3780219780219779,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun3": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 3,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.6666666666666666,
+          "margin": 0.31135531135531136,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun4": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 4,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.75,
+          "margin": 0.228021978021978,
+          "rational": true,
+          "challenge_rate": 0.0
+        },
+        "QQJ_3_gun5": {
+          "board": "QQJ_3",
+          "target": "Q",
+          "challenger_gun": 5,
+          "challenger_hand": [
+            "Q",
+            "Q",
+            "Q",
+            "Joker",
+            "Joker"
+          ],
+          "claim_count": 3,
+          "bluff_floor": 0.978021978021978,
+          "breakeven": 0.8571428571428571,
+          "margin": 0.1208791208791209,
+          "rational": true,
+          "challenge_rate": 0.0
+        }
+      }
+    }
+  ]
+}

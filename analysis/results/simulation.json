@@ -1,0 +1,57 @@
+{
+  "fixed": {
+    "games": 400,
+    "seats": [
+      "Seat_1",
+      "Seat_2",
+      "Seat_3",
+      "Seat_4"
+    ],
+    "wins": {
+      "Seat_4": 94,
+      "Seat_1": 96,
+      "Seat_3": 96,
+      "Seat_2": 114
+    },
+    "win_rates": {
+      "Seat_1": 0.24,
+      "Seat_2": 0.285,
+      "Seat_3": 0.24,
+      "Seat_4": 0.235
+    },
+    "expected_rate": 0.25,
+    "seat_stats": {
+      "Seat_1": {
+        "games": 400,
+        "wins": 96
+      },
+      "Seat_2": {
+        "games": 400,
+        "wins": 114
+      },
+      "Seat_3": {
+        "games": 400,
+        "wins": 96
+      },
+      "Seat_4": {
+        "games": 400,
+        "wins": 94
+      }
+    }
+  },
+  "rotated": {
+    "games": 400,
+    "wins": {
+      "Seat_4": 98,
+      "Seat_2": 90,
+      "Seat_1": 118,
+      "Seat_3": 94
+    },
+    "win_rates": {
+      "Seat_1": 0.295,
+      "Seat_2": 0.225,
+      "Seat_3": 0.235,
+      "Seat_4": 0.245
+    }
+  }
+}

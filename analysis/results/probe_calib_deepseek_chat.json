@@ -1,0 +1,1560 @@
+{
+  "cases": [
+    {
+      "probe_id": "noQ_1_gun0",
+      "board": "noQ_1",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.5,
+      "margin": -0.4813519813519813,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_1_gun1",
+      "board": "noQ_1",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.5454545454545454,
+      "margin": -0.5268065268065267,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_1_gun2",
+      "board": "noQ_1",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.5813519813519814,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_1_gun3",
+      "board": "noQ_1",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.648018648018648,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_1_gun4",
+      "board": "noQ_1",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.75,
+      "margin": -0.7313519813519813,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_1_gun5",
+      "board": "noQ_1",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 1,
+      "bluff_floor": 0.018648018648018683,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.8384948384948384,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun0",
+      "board": "noQ_2",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.5,
+      "margin": -0.31818181818181823,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun1",
+      "board": "noQ_2",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.5454545454545454,
+      "margin": -0.36363636363636365,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun2",
+      "board": "noQ_2",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.4181818181818183,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun3",
+      "board": "noQ_2",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.48484848484848486,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun4",
+      "board": "noQ_2",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.75,
+      "margin": -0.5681818181818182,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_2_gun5",
+      "board": "noQ_2",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.18181818181818177,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.6753246753246753,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_3_gun0",
+      "board": "noQ_3",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.5,
+      "margin": 0.07342657342657344,
+      "rational": true
+    },
+    {
+      "probe_id": "noQ_3_gun1",
+      "board": "noQ_3",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.5454545454545454,
+      "margin": 0.027972027972028024,
+      "rational": true
+    },
+    {
+      "probe_id": "noQ_3_gun2",
+      "board": "noQ_3",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.02657342657342665,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_3_gun3",
+      "board": "noQ_3",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.09324009324009319,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_3_gun4",
+      "board": "noQ_3",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.75,
+      "margin": -0.17657342657342656,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_3_gun5",
+      "board": "noQ_3",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "K",
+        "A",
+        "K",
+        "Joker",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.5734265734265734,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.28371628371628366,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun0",
+      "board": "noQ_A2",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.5,
+      "margin": -0.3997668997668997,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun1",
+      "board": "noQ_A2",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.5454545454545454,
+      "margin": -0.44522144522144513,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun2",
+      "board": "noQ_A2",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.4997668997668998,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun3",
+      "board": "noQ_A2",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.5664335664335663,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun4",
+      "board": "noQ_A2",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.75,
+      "margin": -0.6497668997668997,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A2_gun5",
+      "board": "noQ_A2",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.10023310023310028,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.7569097569097568,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun0",
+      "board": "noQ_A3",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.5,
+      "margin": -0.07342657342657344,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun1",
+      "board": "noQ_A3",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.5454545454545454,
+      "margin": -0.11888111888111885,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun2",
+      "board": "noQ_A3",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.17342657342657353,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun3",
+      "board": "noQ_A3",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.24009324009324007,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun4",
+      "board": "noQ_A3",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.75,
+      "margin": -0.32342657342657344,
+      "rational": false
+    },
+    {
+      "probe_id": "noQ_A3_gun5",
+      "board": "noQ_A3",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "A",
+        "A",
+        "A",
+        "A",
+        "A"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.42657342657342656,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.43056943056943053,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun0",
+      "board": "AJJ_2",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.5,
+      "margin": -0.20629370629370625,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun1",
+      "board": "AJJ_2",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.5454545454545454,
+      "margin": -0.25174825174825166,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun2",
+      "board": "AJJ_2",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.6000000000000001,
+      "margin": -0.30629370629370634,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun3",
+      "board": "AJJ_2",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.6666666666666666,
+      "margin": -0.3729603729603729,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun4",
+      "board": "AJJ_2",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.75,
+      "margin": -0.45629370629370625,
+      "rational": false
+    },
+    {
+      "probe_id": "AJJ_2_gun5",
+      "board": "AJJ_2",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "K",
+        "K",
+        "K",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.29370629370629375,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.5634365634365633,
+      "rational": false
+    },
+    {
+      "probe_id": "QQQ_2_gun0",
+      "board": "QQQ_2",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.5,
+      "margin": 0.2582417582417582,
+      "rational": true
+    },
+    {
+      "probe_id": "QQQ_2_gun1",
+      "board": "QQQ_2",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.5454545454545454,
+      "margin": 0.2127872127872128,
+      "rational": true
+    },
+    {
+      "probe_id": "QQQ_2_gun2",
+      "board": "QQQ_2",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.6000000000000001,
+      "margin": 0.15824175824175812,
+      "rational": true
+    },
+    {
+      "probe_id": "QQQ_2_gun3",
+      "board": "QQQ_2",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.6666666666666666,
+      "margin": 0.09157509157509158,
+      "rational": true
+    },
+    {
+      "probe_id": "QQQ_2_gun4",
+      "board": "QQQ_2",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.75,
+      "margin": 0.008241758241758212,
+      "rational": true
+    },
+    {
+      "probe_id": "QQQ_2_gun5",
+      "board": "QQQ_2",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Q",
+        "Q"
+      ],
+      "target": "Q",
+      "claim_count": 2,
+      "bluff_floor": 0.7582417582417582,
+      "breakeven": 0.8571428571428571,
+      "margin": -0.09890109890109888,
+      "rational": false
+    },
+    {
+      "probe_id": "QQJ_3_gun0",
+      "board": "QQJ_3",
+      "challenger_gun": 0,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.5,
+      "margin": 0.478021978021978,
+      "rational": true
+    },
+    {
+      "probe_id": "QQJ_3_gun1",
+      "board": "QQJ_3",
+      "challenger_gun": 1,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.5454545454545454,
+      "margin": 0.4325674325674326,
+      "rational": true
+    },
+    {
+      "probe_id": "QQJ_3_gun2",
+      "board": "QQJ_3",
+      "challenger_gun": 2,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.6000000000000001,
+      "margin": 0.3780219780219779,
+      "rational": true
+    },
+    {
+      "probe_id": "QQJ_3_gun3",
+      "board": "QQJ_3",
+      "challenger_gun": 3,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.6666666666666666,
+      "margin": 0.31135531135531136,
+      "rational": true
+    },
+    {
+      "probe_id": "QQJ_3_gun4",
+      "board": "QQJ_3",
+      "challenger_gun": 4,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.75,
+      "margin": 0.228021978021978,
+      "rational": true
+    },
+    {
+      "probe_id": "QQJ_3_gun5",
+      "board": "QQJ_3",
+      "challenger_gun": 5,
+      "challenger_hand": [
+        "Q",
+        "Q",
+        "Q",
+        "Joker",
+        "Joker"
+      ],
+      "target": "Q",
+      "claim_count": 3,
+      "bluff_floor": 0.978021978021978,
+      "breakeven": 0.8571428571428571,
+      "margin": 0.1208791208791209,
+      "rational": true
+    }
+  ],
+  "runs": {
+    "threat": {
+      "model": "deepseek-chat",
+      "repeats": 5,
+      "total_calls": 240,
+      "format_failures": 0,
+      "by_case": {
+        "noQ_1_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_3_gun0": [
+          true,
+          true,
+          false,
+          false,
+          false
+        ],
+        "noQ_3_gun1": [
+          false,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun2": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun3": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun4": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun5": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun0": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_A2_gun1": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun2": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun3": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_A2_gun4": [
+          true,
+          false,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun5": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun0": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun1": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun2": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun3": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun4": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun5": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "AJJ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "failure_detail": []
+    },
+    "neutral": {
+      "model": "deepseek-chat",
+      "repeats": 5,
+      "total_calls": 240,
+      "format_failures": 0,
+      "by_case": {
+        "noQ_1_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_1_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_2_gun5": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_3_gun0": [
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        "noQ_3_gun1": [
+          false,
+          true,
+          false,
+          true,
+          false
+        ],
+        "noQ_3_gun2": [
+          false,
+          true,
+          false,
+          false,
+          true
+        ],
+        "noQ_3_gun3": [
+          false,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun4": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_3_gun5": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun0": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_A2_gun1": [
+          true,
+          false,
+          false,
+          false,
+          false
+        ],
+        "noQ_A2_gun2": [
+          true,
+          false,
+          true,
+          false,
+          true
+        ],
+        "noQ_A2_gun3": [
+          true,
+          true,
+          true,
+          false,
+          false
+        ],
+        "noQ_A2_gun4": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A2_gun5": [
+          true,
+          false,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun0": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun1": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun2": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun3": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun4": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "noQ_A3_gun5": [
+          true,
+          true,
+          true,
+          true,
+          true
+        ],
+        "AJJ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "AJJ_2_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQQ_2_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun0": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun1": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun2": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun3": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun4": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ],
+        "QQJ_3_gun5": [
+          false,
+          false,
+          false,
+          false,
+          false
+        ]
+      },
+      "failure_detail": []
+    }
+  }
+}
