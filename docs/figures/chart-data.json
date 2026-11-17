@@ -3,7 +3,7 @@
   "providerCallsDuringPlotting": 0,
   "generator": {
     "path": "scripts/plot_evaluation.py",
-    "sha256": "eabae8a1e54ace58640fcf3da7b5f8dbfd040190419b4ab536b8fa9a877d6789",
+    "sha256": "f60761fcef995b18e8af0159f551f4cc1d5e163102e6cacaf295331b255c0885",
     "normalization": "CRLF-to-LF"
   },
   "matplotlibVersion": "3.11.2",

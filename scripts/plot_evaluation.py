@@ -103,6 +103,10 @@ def save(fig, output: Path, name: str) -> None:
                 metadata={"Software": "scripts/plot_evaluation.py"})
     fig.savefig(output / f"{name}.svg", bbox_inches="tight", pad_inches=0.22,
                 metadata={"Date": None, "Creator": "scripts/plot_evaluation.py"})
+    svg = output / f"{name}.svg"
+    cleaned = "\n".join(line.rstrip() for line in svg.read_text(encoding="utf-8").splitlines()) + "\n"
+    with svg.open("w", encoding="utf-8", newline="\n") as stream:
+        stream.write(cleaned)
     plt.close(fig)
 
 
