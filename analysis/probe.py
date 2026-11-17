@@ -1,28 +1,17 @@
-"""决策级探针：固定一个牌局，只问模型一个决策，1 次调用。
+"""probe-v2：具有公开生成假设和单步效用目标的合成参考评测。
 
-上游跑整局大约 40 次 LLM 调用；一局只能给出一个「谁赢了」的结果。
-但评估需要的不是整局，是**同一类决策在不同条件下的分布**。所以把
-牌局冻结成一个瞬间，反复问同一个问题，换来两个好处：
-
-1. 便宜两个数量级——同样的预算能采样到统计显著的样本量；
-2. 干净——每一局的子弹位置、洗牌、对手行为都被固定住了，两次运行
-   之间的差异只能来自我们改动的那个变量。
-
-判分方式：牌局是我们造的，所以每种情况的正确答案是已知的。
-模型不知道自己面对的是探针牌局还是真实牌局。
-
-用法：
-    python -m analysis.probe --dry-run            # 不花钱，打印 prompt 和统计
-    python -m analysis.probe --model deepseek-r1 --repeats 5
-
-注意：真跑需要先填 llm_client.py 的 API_BASE_URL / API_KEY。
+每个样本只请求一次，格式错误、接口错误与缓存复用分别统计。旧版真实博弈
+探针没有告知模型生成假设，其历史结果不能套用 v2 参考答案重新判对错。
 """
 
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
+import uuid
+from datetime import datetime, timezone
 from dataclasses import dataclass, field, asdict
 from pathlib import Path
 
@@ -34,12 +23,24 @@ sys.path.insert(0, str(REPO_ROOT))
 
 import player as player_module  # noqa: E402
 from game_record import PlayerInitialState, RoundRecord  # noqa: E402
-from player import Player  # noqa: E402
+from player import ModelOutputError, parse_action  # noqa: E402
 
 
 #: 去品牌化：上游把玩家名设为模型名（"Claude"/"DeepSeek"），名字本身
 #: 会进入 prompt，模型可能因此知道对手是谁。探针统一用匿名座位。
 SEATS = ("Player_A", "Player_B", "Player_C", "Player_D")
+SUITE_VERSION = "probe-v2"
+SYNTHETIC_ASSUMPTIONS = """合成条件评测（probe-v2）：以下公开假设优先于游戏规则中的长期策略目标。
+1. 本手的宣称张数在发牌前外生固定，且独立于所有玩家的手牌，不是出牌者依据手牌选择的。
+2. 本轮重新随机发牌。出牌者在扣除你手牌后的未见牌中均匀抽取 5 张；与此前回合和枪膛状态独立。
+3. 对手若有足够目标牌或 Joker，就只出这些真牌；否则必须按固定张数出牌，并至少包含一张假牌。对手不会主动诈唬。
+4. 行为描述是固定脚本，无额外信号；此前的回合历史与对手印象不提供额外手牌信息。
+5. 目标只最大化这一次决策的“对手淘汰概率减自己淘汰概率”。不质疑的单步效用为 0；不考虑后续回合、信息价值或整局胜率。
+请在这些假设下作出决策。这是条件参考问题，不代表真实博弈或整局最优策略。"""
+
+
+def prompt_hash(prompt: str) -> str:
+    return hashlib.sha256(prompt.encode("utf-8")).hexdigest()
 
 
 @dataclass
@@ -50,9 +51,8 @@ class ProbeCase:
     模型看不见，所以 bluff=True/False 两个 case 渲染出来的 prompt 逐字节相同
     （tests 里断言过）。拿它当正确答案，测的只是同一份输入下的采样噪声。
 
-    现在只用质疑者能算出来的东西：``bluff_floor`` 是「对手能出真牌就出真牌」
-    时的被迫诈唬下界，``breakeven`` 是 EV=0 的门槛。下界已经越过门槛时，
-    质疑无条件正确——这是唯一不依赖模型不可见信息的判据。
+    v2 将出牌张数独立于手牌、固定诚实优先策略等生成假设写入 prompt。
+    在这些条件下可精确计算诈唬概率，参考动作只优化单步效用。
     """
 
     probe_id: str
@@ -84,22 +84,37 @@ class ProbeCase:
 
     @property
     def rational(self) -> bool:
-        """被迫诈唬下界 >= 盈亏平衡点时，质疑是无条件正确的。"""
-        return self.bluff_floor >= self.breakeven
+        """兼容旧字段名；仅指 v2 假设下的单步参考动作。"""
+        return self.reference_decision
+
+    @property
+    def bluff_probability(self) -> float:
+        return self.bluff_floor
+
+    @property
+    def reference_decision(self) -> bool:
+        """期望效用非负则质疑；EV=0 时固定以质疑打破平局。"""
+        return self.bluff_probability >= self.breakeven
 
     @property
     def margin(self) -> float:
-        """下界离门槛有多远。正数越大，质疑越确定；负数越小，越不该质疑。"""
+        """v2 精确诈唬概率与单步盈亏平衡点之差。"""
         return self.bluff_floor - self.breakeven
 
 
-def build_round_record(case: ProbeCase, round_id: int = 1) -> RoundRecord:
+def reference_decision(case: ProbeCase) -> bool:
+    return case.reference_decision
+
+
+def build_round_record(case: ProbeCase, round_id: int | None = None) -> RoundRecord:
     """用上游的 RoundRecord 拼出 prompt 需要的文本。
 
     走上游代码而不是手拼字符串，是为了保证探针里模型看到的
     prompt 和真实对局里的 prompt 同构——否则测出来的东西不对表。
     """
-    others = [s for s in SEATS if s != case.actor]
+    # 每个此前回合至多开一枪，累计开枪数给出最早可行回合。
+    minimum_round = 1 + case.actor_gun + case.challenger_gun
+    round_id = max(round_id or minimum_round, minimum_round)
     states = []
     for seat in SEATS:
         if seat == case.challenger:
@@ -108,10 +123,13 @@ def build_round_record(case: ProbeCase, round_id: int = 1) -> RoundRecord:
             hand = ["?"] * (case.actor_remaining + case.actor_play_count)
         else:
             hand = ["?"] * 5
+        gun = (case.actor_gun if seat == case.actor else
+               case.challenger_gun if seat == case.challenger else 0)
         states.append(PlayerInitialState(
             player_name=seat,
-            bullet_position=case.actor_gun if seat == case.actor else case.challenger_gun,
-            current_gun_position=case.actor_gun if seat == case.actor else case.challenger_gun,
+            # 未开过的位置可放实弹，已存活的过去位置不能有实弹。
+            bullet_position=5,
+            current_gun_position=gun,
             initial_hand=hand,
         ))
 
@@ -164,13 +182,13 @@ def render_prompt(case: ProbeCase, rule_base: str = "threat") -> str:
         self_hand=f"你现在的手牌是: {', '.join(case.challenger_hand)}",
         challenge_decision_info=record.get_challenge_decision_info(case.challenger, case.actor),
         challenging_player_performance=record.get_latest_play_behavior(),
-        extra_hint="",
+        extra_hint=SYNTHETIC_ASSUMPTIONS,
     )
 
 
 #: 牌面池。每项 = (牌面 ID, 质疑者手牌, 目标牌, 出牌张数, 行为描写)。
 #: 全部固定质疑者 5 张手牌、出牌者小局开始时 5 张手牌（actor_play_count +
-#: actor_remaining == 5），所以一局第一轮的公牌数是自洽的。
+#: actor_remaining == 5），所以本轮首次出牌前的牌数是自洽的。
 #:
 #: 先验从 0.019 一路铺到 0.978，横跨 p* 从 0.500（对手 0 枪、自己 0 枪）
 #: 到 0.857（自己 5 枪、对手 0 枪）的整条门槛线。这样同一手牌在不同枪膛位
@@ -218,70 +236,164 @@ class ProbeRun:
     model: str
     repeats: int
     total_calls: int = 0
+    resumed_calls: int = 0
     format_failures: int = 0
+    api_failures: int = 0
     by_case: dict[str, list[bool]] = field(default_factory=dict)
     failure_detail: list[str] = field(default_factory=list)
 
 
+def _parse_choice(content: str) -> bool | None:
+    """复用玩家的严格动作契约，保持缓存和新请求的校验一致。"""
+    try:
+        return parse_action(content, "challenge")["was_challenged"]
+    except ModelOutputError:
+        return None
+
+
+def _log_tag(case, rule_base, repeat_idx, model, seed, temperature, prompt):
+    # JSON 字符串同时保留人的可读性和精确的身份字段，避免冒号拼接歧义。
+    return json.dumps({
+        "suite_version": SUITE_VERSION, "rule_base": rule_base,
+        "probe_id": case.probe_id, "repeat": repeat_idx, "model": model,
+        "seed": seed, "temperature": temperature, "prompt_hash": prompt_hash(prompt),
+    }, sort_keys=True, ensure_ascii=False)
+
+
+def load_log(log_path) -> dict[str, list[bool]]:
+    """恢复匹配 v2 tag、prompt hash、模型、seed 和 temperature 的成功样本。
+
+    保留用户原有的断点续跑能力；缺少完整身份信息的 v1 日志只可历史查看，
+    绝不按 prompt 或旧 tag 悄悄混入 v2。损坏/未完成的尾行不作为成功结果。
+    """
+    path = Path(log_path)
+    if not path.exists():
+        return {}
+    index: dict[str, list[bool]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        try:
+            record = json.loads(line)
+            if not isinstance(record, dict):
+                continue
+            tag = json.loads(record.get("tag", ""))
+            prompt = record["messages"][0]["content"]
+        except (ValueError, TypeError, KeyError, IndexError):
+            continue
+        if not isinstance(tag, dict) or tag.get("suite_version") != SUITE_VERSION:
+            continue
+        if not isinstance(prompt, str) or tag.get("prompt_hash") != prompt_hash(prompt):
+            continue
+        requested_model = record.get("requested_model", record.get("model"))
+        if tag.get("model") != requested_model:
+            continue
+        if any(tag.get(key) != record.get(key) for key in ("seed", "temperature")):
+            continue
+        if not all(key in tag for key in ("rule_base", "probe_id", "repeat", "model", "seed", "temperature")):
+            continue
+        choice = _parse_choice(record.get("content", ""))
+        if choice is not None:
+            key = json.dumps(tag, sort_keys=True, ensure_ascii=False)
+            index.setdefault(key, []).append(choice)
+    return index
+
+
+def _prompt_text(case: "ProbeCase") -> str:
+    """和 Player.decide_challenge 里拼出来的 prompt 完全一致，用于当指纹。"""
+    record = build_round_record(case)
+    return render_prompt_text(case, record)
+
+
+def render_prompt_text(case: "ProbeCase", record) -> str:
+    template = (REPO_ROOT / "prompt" / "challenge_prompt_template.txt").read_text(encoding="utf-8")
+    rules = player_module.RULE_BASE_PATH and Path(player_module.RULE_BASE_PATH).read_text(encoding="utf-8").strip()
+    return template.format(
+        rules=rules,
+        self_name=case.challenger,
+        round_base_info=record.get_latest_round_info(),
+        round_action_info=record.get_latest_round_actions(case.challenger, include_latest=False),
+        self_hand=f"你现在的手牌是: {', '.join(case.challenger_hand)}",
+        challenge_decision_info=record.get_challenge_decision_info(case.challenger, case.actor),
+        challenging_player_performance=record.get_latest_play_behavior(),
+        extra_hint=SYNTHETIC_ASSUMPTIONS,
+    )
+
+
 def run_probe(cases, model: str, repeats: int, temperature: float = 0.0,
-              rule_base: str = "threat", log_path=None) -> ProbeRun:
-    """每个 case 重复 repeats 次，每次 1 次 API 调用。
+              rule_base: str = "threat", log_path=None, seed: int = 0) -> ProbeRun:
+    """每个样本一次请求；独立记录格式失败、API 失败和严格身份匹配的恢复。
 
-    格式失败**不计入**质疑率，单独计数——上游把重试失败 print 掉、
-    连续 5 次失败直接抛异常崩掉整批，这是我们要修的最关键一件事。
-
-    rule_base 切换规则文本（见 RULE_BASES），用来做「生存威胁」消融。
-    上游 Player 模块级常量读的是 prompt/rule_base.txt，这里临时换掉，
-    跑完还原，不影响后续对局。
+    seed 按 repeat 偏移，并记录实际传给后端的值；后端是否遵守 seed 不由本地保证。
     """
     from llm_client import LLMClient
 
-    original_rule_path = player_module.RULE_BASE_PATH
-    player_module.RULE_BASE_PATH = str(RULE_BASES[rule_base])
-    llm = LLMClient(temperature=temperature, log_path=log_path)
+    if repeats <= 0:
+        raise ValueError("repeats 必须为正整数")
+    llm = None  # 全缓存命中时不初始化带鉴权要求的客户端。
     run = ProbeRun(model=model, repeats=repeats)
-
-    try:
-        for case in cases:
-            results: list[bool] = []
-            for _ in range(repeats):
-                probe_player = Player(name=case.challenger, model_name=model)
-                probe_player.llm_client = llm
-                probe_player.hand = list(case.challenger_hand)
-
-                record = build_round_record(case)
-                run.total_calls += 1
-                try:
-                    result, _ = probe_player.decide_challenge(
-                        round_base_info=record.get_latest_round_info(),
-                        round_action_info=record.get_latest_round_actions(case.challenger, include_latest=False),
-                        challenge_decision_info=record.get_challenge_decision_info(case.challenger, case.actor),
-                        challenging_player_performance=record.get_latest_play_behavior(),
-                        extra_hint="",
-                    )
-                    results.append(bool(result["was_challenged"]))
-                except RuntimeError as exc:
-                    run.format_failures += 1
-                    run.failure_detail.append(f"{case.probe_id}: {exc}")
-            run.by_case[case.probe_id] = results
-    finally:
-        player_module.RULE_BASE_PATH = original_rule_path
-
+    cached = load_log(log_path) if log_path else {}
+    for case in cases:
+        results: list[bool] = []
+        prompt = render_prompt(case, rule_base)
+        for repeat_idx in range(repeats):
+            request_seed = seed + repeat_idx
+            exact_key = _log_tag(case, rule_base, repeat_idx, model, request_seed, temperature, prompt)
+            if cached.get(exact_key):
+                results.append(cached[exact_key][0])
+                run.resumed_calls += 1
+                continue
+            if llm is None:
+                # 保留崩溃留下的尾行，但把后续新记录放在新行上，避免粘连丢失。
+                if log_path and Path(log_path).exists() and Path(log_path).stat().st_size:
+                    with Path(log_path).open("rb+") as stream:
+                        stream.seek(-1, 2)
+                        if stream.read(1) != b"\n":
+                            stream.seek(0, 2)
+                            stream.write(b"\n")
+                llm = LLMClient(temperature=temperature, seed=seed, max_retries=0, log_path=log_path)
+            llm.seed, llm.tag = request_seed, exact_key
+            run.total_calls += 1
+            try:
+                content, _ = llm.chat([{"role": "user", "content": prompt}], model=model)
+            except Exception as exc:
+                # API 异常不是模型格式错误，不保存可能包含凭据的原始错误文本。
+                run.api_failures += 1
+                error_type = type(exc).__name__
+                run.failure_detail.append(f"{case.probe_id}/{repeat_idx}: api:{error_type}")
+                if error_type in ("AuthenticationError", "PermissionDeniedError"):
+                    raise  # 鉴权错误快速失败，原始日志保留此前成功请求以便恢复。
+                continue
+            choice = _parse_choice(content)
+            if choice is None:
+                run.format_failures += 1
+                run.failure_detail.append(f"{case.probe_id}/{repeat_idx}: format:invalid_action")
+            else:
+                results.append(choice)
+        run.by_case[case.probe_id] = results
     return run
 
 
 def _rate(results: list[bool]) -> float:
-    return sum(results) / len(results)
+    return sum(results) / len(results) if results else 0.0
 
 
 def summarize(run: ProbeRun, cases: list[ProbeCase]) -> str:
-    """逐牌面输出。判据是「下界 vs 门槛」，不是「真牌是不是诈唬」。"""
+    """逐牌面输出，仅解释为 v2 条件参考策略的一致性。"""
     by_id = {c.probe_id: c for c in cases}
+    # 全部命中断点缓存时 total_calls 是 0，格式失败率没有分母——直接说没发新请求
+    if run.total_calls:
+        fail_line = (f"格式失败 {run.format_failures} 次"
+                     f"（{run.format_failures / run.total_calls:.1%}）")
+    else:
+        fail_line = "格式失败 0 次（本次没有发出新请求）"
     lines = [
-        f"模型 {run.model}  每个牌局重复 {run.repeats} 次  共 {run.total_calls} 次调用",
-        f"格式失败 {run.format_failures} 次（{run.format_failures / run.total_calls:.1%}）",
+        f"模型 {run.model}  每个牌局重复 {run.repeats} 次  新调用 {run.total_calls} 次，"
+        f"复用断点缓存 {run.resumed_calls} 次",
+        fail_line,
+        f"接口失败 {run.api_failures} 次；参考仅适用于 {SUITE_VERSION} 的公开生成假设",
         "",
-        f"{'牌面':<10}{'枪膛':<6}{'诈唬下界':<10}{'门槛':<8}{'余量':<8}{'该质疑':<8}{'质疑率':<10}{'判读':<10}",
+        f"{'牌面':<10}{'枪膛':<6}{'条件诈唬率':<10}{'门槛':<8}{'余量':<8}{'参考质疑':<8}{'质疑率':<10}{'判读':<10}",
         "-" * 76,
     ]
     for probe_id, results in run.by_case.items():
@@ -293,9 +405,9 @@ def summarize(run: ProbeRun, cases: list[ProbeCase]) -> str:
         elif 0.2 < rate < 0.8:
             verdict = "摇摆"
         elif rate >= 0.8:
-            verdict = "符合" if should else "过度质疑"
+            verdict = "符合参考" if should else "偏离参考"
         else:
-            verdict = "符合" if not should else "漏质疑"
+            verdict = "符合参考" if not should else "偏离参考"
         lines.append(
             f"{case.board:<10}{case.challenger_gun:<6}"
             f"{case.bluff_floor:<10.3f}{case.breakeven:<8.3f}{case.margin:<+8.3f}"
@@ -347,14 +459,13 @@ def compare_rule_bases(runs: dict[str, ProbeRun]) -> str:
     这里按「该/不该」分组而不是按真牌分组——真牌模型看不见，分组没有意义。
     """
     lines = [
-        f"{'规则文本':<12}{'该质疑组质疑率':<18}{'不该质疑组质疑率':<20}{'区分度':<10}{'格式失败率':<12}",
-        "-" * 74,
+        f"{'规则文本':<12}{'该质疑组质疑率':<18}{'不该质疑组质疑率':<20}{'区分度':<10}{'新调用':<8}",
+        "-" * 70,
     ]
     for label, run in runs.items():
         yes = challenge_rate(run, True)
         no = challenge_rate(run, False)
-        fail = run.format_failures / run.total_calls if run.total_calls else 0.0
-        lines.append(f"{label:<12}{yes:<18.1%}{no:<20.1%}{yes - no:<+10.1%}{fail:<12.1%}")
+        lines.append(f"{label:<12}{yes:<18.1%}{no:<20.1%}{yes - no:<+10.1%}{run.total_calls:<8}")
 
     if "threat" in runs and "neutral" in runs:
         for should in (True, False):
@@ -370,34 +481,99 @@ def main() -> None:
     parser.add_argument("--model", default="deepseek-chat")
     parser.add_argument("--repeats", type=int, default=5)
     parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument("--seed", type=int, default=0, help="第 r 次重复使用 seed+r")
     parser.add_argument("--rule-base", default="threat", choices=[*RULE_BASES, "both"])
+    parser.add_argument("--boards", default="",
+                        help="只跑这些牌面，逗号分隔（如 QQJ_3,QQQ_2,noQ_3,noQ_A3）；默认全部")
     parser.add_argument("--dry-run", action="store_true", help="只打印 prompt，不发请求，不花钱")
     parser.add_argument("--out", default="", help="结果写到这个 json 文件")
     parser.add_argument("--log", default="", help="原始请求/响应落盘位置")
+    parser.add_argument("--run-dir", default="", help="运行目录；默认创建唯一目录")
     args = parser.parse_args()
+    if args.repeats <= 0:
+        parser.error("--repeats 必须为正整数")
 
     cases = make_cases()
+    if args.boards:
+        wanted = [b.strip() for b in args.boards.split(",") if b.strip()]
+        unknown = [b for b in wanted if b not in BOARDS]
+        if unknown:
+            parser.error(f"未知牌面：{unknown}；可选：{sorted(BOARDS)}")
+        cases = [c for c in cases if c.board in wanted]
 
     if args.dry_run:
         for label in RULE_BASES:
             prompt = render_prompt(cases[0], rule_base=label)
             print(f"===== 规则文本 {label} =====")
-            print(prompt[:400] + "\n...")
+            print(prompt)
         print("\n" + "=" * 60 + "\n")
         for case in cases:
             print(f"{case.board:<10} gun{case.challenger_gun}  "
-                  f"下界={case.bluff_floor:.3f}  门槛={case.breakeven:.3f}  "
-                  f"余量={case.margin:+.3f}  该质疑={'是' if case.rational else '否'}")
+                  f"条件诈唬率={case.bluff_probability:.3f}  门槛={case.breakeven:.3f}  "
+                  f"余量={case.margin:+.3f}  参考质疑={'是' if case.reference_decision else '否'}")
         labels = list(RULE_BASES) if args.rule_base == "both" else [args.rule_base]
         print(f"\n共 {len(cases)} 个牌局 × {len(labels)} 种规则文本；"
               f"每个重复 {args.repeats} 次 = {len(cases) * len(labels) * args.repeats} 次调用")
         return
 
     labels = list(RULE_BASES) if args.rule_base == "both" else [args.rule_base]
-    runs = {
-        label: run_probe(cases, args.model, args.repeats, args.temperature, label, args.log or None)
-        for label in labels
+    run_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + uuid.uuid4().hex[:8]
+    run_dir = Path(args.run_dir) if args.run_dir else REPO_ROOT / "analysis" / "results" / "runs" / run_id
+    out_path = Path(args.out) if args.out else run_dir / "probe.json"
+    log_path = Path(args.log) if args.log else run_dir / "raw.jsonl"
+    manifest_path = run_dir / "manifest.json"
+    if out_path.exists() or manifest_path.exists():
+        parser.error("结果或 manifest 已存在；请选新目录/新 --out，并用 --log 指向旧日志恢复")
+    run_dir.mkdir(parents=True, exist_ok=True)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+    manifest = {
+        "run_id": run_id, "suite_version": SUITE_VERSION, "status": "running",
+        "started_at": datetime.now(timezone.utc).isoformat(), "model": args.model,
+        "temperature": args.temperature, "base_seed": args.seed,
+        "repeat_seeds": [args.seed + i for i in range(args.repeats)],
+        "repeats": args.repeats, "rule_bases": labels,
+        "assumptions": SYNTHETIC_ASSUMPTIONS,
+        "prompt_hashes": {label: {c.probe_id: prompt_hash(render_prompt(c, label)) for c in cases}
+                          for label in labels},
+        "out_path": str(out_path.resolve()), "log_path": str(log_path.resolve()),
+        "seed_contract": "发送给提供方，不保证提供方支持或完全确定性；重复次数不等于独立牌面数",
     }
+    manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
+    try:
+        runs = {
+            label: run_probe(cases, args.model, args.repeats, args.temperature, label, log_path, args.seed)
+            for label in labels
+        }
+        manifest.update(status="completed", finished_at=datetime.now(timezone.utc).isoformat())
+        payload = {
+            "suite_version": SUITE_VERSION, "manifest": manifest,
+            "cases": [
+                    {
+                        "probe_id": c.probe_id, "board": c.board,
+                        "challenger_gun": c.challenger_gun,
+                        "challenger_hand": c.challenger_hand,
+                        "target": c.target, "claim_count": c.actor_play_count,
+                        "bluff_floor": c.bluff_floor, "breakeven": c.breakeven,
+                        "margin": c.margin, "rational": c.rational,
+                        "bluff_probability": c.bluff_probability,
+                        "reference_decision": c.reference_decision,
+                    }
+                    for c in cases
+            ],
+            "runs": {label: asdict(run) for label, run in runs.items()},
+        }
+        out_path.write_text(
+            json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8",
+        )
+    except BaseException as exc:
+        manifest.update(status="failed", error_type=type(exc).__name__)
+        raise
+    finally:
+        manifest["finished_at"] = datetime.now(timezone.utc).isoformat()
+        if manifest["status"] == "running":
+            manifest["status"] = "completed"
+        manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
     for label, run in runs.items():
         print(f"\n===== 规则文本 {label} =====")
@@ -411,26 +587,7 @@ def main() -> None:
         print("\n===== 消融对比 =====")
         print(compare_rule_bases(runs))
 
-    if args.out:
-        payload = {
-            "cases": [
-                {
-                    "probe_id": c.probe_id, "board": c.board,
-                    "challenger_gun": c.challenger_gun,
-                    "challenger_hand": c.challenger_hand,
-                    "target": c.target, "claim_count": c.actor_play_count,
-                    "bluff_floor": c.bluff_floor, "breakeven": c.breakeven,
-                    "margin": c.margin, "rational": c.rational,
-                }
-                for c in cases
-            ],
-            "runs": {label: asdict(run) for label, run in runs.items()},
-        }
-        Path(args.out).write_text(
-            json.dumps(payload, ensure_ascii=False, indent=2),
-            encoding="utf-8",
-        )
-        print(f"\n结果已写入 {args.out}")
+    print(f"\n结果：{out_path}\n原始日志：{log_path}\n运行清单：{manifest_path}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,48 @@
+name: Verify evaluation platform
+on: [push, pull_request]
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: python -m unittest discover -s tests -v
+      - run: python -m unittest discover -s practice/offline_table/tests -v
+  java-and-integration:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: liars_eval_test
+          POSTGRES_USER: liars_eval
+          POSTGRES_PASSWORD: ci-only-password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U liars_eval -d liars_eval_test"
+          --health-interval 3s --health-timeout 3s --health-retries 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+      - run: pip install -r requirements.txt
+      - run: mvn -B -f control-plane/pom.xml verify
+      - run: python scripts/smoke_platform.py
+      - run: >-
+          python scripts/smoke_platform.py
+          --database-url jdbc:postgresql://127.0.0.1:5432/liars_eval_test
+          --database-username liars_eval
+          --database-password ci-only-password

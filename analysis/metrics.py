@@ -61,7 +61,10 @@ def challenge_accuracy(decisions: list[Decision]) -> Rate:
 
 
 def missed_bluff_rate(decisions: list[Decision]) -> Rate:
-    """P(放过了诈唬 | 没质疑)——即模型的漏检率。"""
+    """兼容历史名称：P(诈唬 | 未质疑)，即未质疑中的残余诈唬比例。
+
+    这不是分类漏检率 FNR；后者的分母应为全部诈唬，而非全部未质疑。
+    """
     return rate([d.bluff for d in decisions if not d.challenged])
 
 

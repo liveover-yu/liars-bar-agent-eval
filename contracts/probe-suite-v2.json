@@ -1,0 +1,15 @@
+{
+  "suiteVersion": "probe-v2",
+  "guns": [0, 1, 2, 3, 4, 5],
+  "boards": ["noQ_1", "noQ_2", "noQ_3", "noQ_A2", "noQ_A3", "AJJ_2", "QQQ_2", "QQJ_3"],
+  "assumptions": [
+    "The claim count is fixed before dealing and independent of the actor hand.",
+    "The actor plays only legal cards whenever enough are available, otherwise bluffs.",
+    "The behavior description contains no additional information about the hand.",
+    "The utility is the immediate opponent elimination probability minus self elimination probability; passing has utility zero."
+  ],
+  "interpretation": "Agreement with a reference policy under these synthetic assumptions, not optimal play in the unrestricted game.",
+  "caseExpansion": "boards in request order, then gun 0..5, then repeatIndex 0..repeats-1",
+  "caseId": "<board>_gun<gun>:<repeatIndex>",
+  "seed": "run seed plus the zero-based expanded case ordinal"
+}

@@ -1,0 +1,408 @@
+openapi: 3.0.3
+info:
+  title: Liars Eval Task Control Plane
+  version: 0.1.0
+  description: 持久化任务、租约、逐attempt预算与case checkpoint。mock无需模型调用；参考一致率受probe-v2假设约束。
+servers:
+  - url: http://127.0.0.1:8080
+security:
+  - ApiKey: []
+paths:
+  /actuator/health:
+    get:
+      security: []
+      operationId: health
+      responses:
+        '200': {description: Healthy}
+        '503': {description: Unhealthy}
+  /api/runs:
+    post:
+      operationId: createRun
+      description: 规范化缺省值后比较幂等键，配置不同返回IDEMPOTENCY_CONFLICT。
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: {type: string, minLength: 1, maxLength: 200}
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/Config'}
+      responses:
+        '201':
+          description: 新任务
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        '200':
+          description: 相同规范化配置的幂等重放
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+    get:
+      operationId: listRuns
+      parameters:
+        - name: limit
+          in: query
+          schema: {type: integer, minimum: 1, maximum: 100, default: 20}
+      responses:
+        '200':
+          description: 按创建时间倒序
+          content:
+            application/json:
+              schema:
+                type: array
+                items: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/runs/{runId}:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    get:
+      operationId: getRun
+      responses:
+        '200':
+          description: 任务当前状态
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/runs/{runId}/results:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    get:
+      operationId: getResults
+      parameters:
+        - name: page
+          in: query
+          schema: {type: integer, minimum: 0, default: 0}
+        - name: size
+          in: query
+          schema: {type: integer, minimum: 1, maximum: 1000, default: 100}
+      responses:
+        '200':
+          description: 已checkpoint的case，按确定性展开顺序分页；items不返回leaseToken。
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items: {type: array, items: {$ref: '#/components/schemas/CaseResult'}}
+                  total: {type: integer}
+                  page: {type: integer}
+                  size: {type: integer}
+        default: {$ref: '#/components/responses/Error'}
+  /api/runs/{runId}/report:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    get:
+      operationId: getReport
+      responses:
+        '200':
+          description: 决策参考一致率与运行统计，空分母返回null。
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Report'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/runs/{runId}/cancel:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: cancelRun
+      description: 仅QUEUED/RUNNING允许取消；重复取消幂等。立即使lease失效。
+      responses:
+        '200':
+          description: CANCELLED
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/runs/{runId}/resume:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: resumeRun
+      description: 仅FAILED/CANCELLED且仍有可继续的case可恢复；保留全部预算及checkpoint。预算耗尽409。
+      responses:
+        '200':
+          description: QUEUED
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/claims:
+    post:
+      operationId: claimRun
+      description: 领取QUEUED或lease已过期的RUNNING任务。每run仅一个有效token。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [workerId]
+              properties:
+                workerId: {type: string, minLength: 1, maxLength: 128}
+      responses:
+        '200':
+          description: 任务与租约
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/Claim'}
+        '204': {description: 暂无可领取任务}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/runs/{runId}/heartbeat:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: heartbeat
+      requestBody: {$ref: '#/components/requestBodies/Lease'}
+      responses:
+        '200':
+          description: 续期后的截止时间
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  leaseExpiresAt: {type: string, format: date-time}
+                  leaseSeconds: {type: integer}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/runs/{runId}/attempts:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: reserveAttempt
+      description: 调用前事务预留预算；相同attemptId重放不重复计数。STARTED即使崩溃也占预算。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [leaseToken, caseId, attemptId]
+              properties:
+                leaseToken: {type: string}
+                caseId: {type: string}
+                attemptId: {type: string, format: uuid}
+      responses:
+        '201':
+          description: 已预留
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AttemptView'}
+        '200':
+          description: 幂等重放
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/AttemptView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/runs/{runId}/attempts/{attemptId}/finish:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+      - name: attemptId
+        in: path
+        required: true
+        schema: {type: string, format: uuid}
+    post:
+      operationId: finishAttempt
+      description: 必须是当前lease且attempt属于该lease。相同结果重放不重复usage，不同结果409。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema: {$ref: '#/components/schemas/Finish'}
+      responses:
+        '200':
+          description: 已保存attempt与可能的case checkpoint
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  attemptId: {type: string}
+                  caseId: {type: string}
+                  caseStatus: {type: string, enum: [PENDING, SUCCESS, ERROR]}
+                  run: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/runs/{runId}/complete:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: completeRun
+      description: 全部case已checkpoint才允许；有错误case则FAILED，否则SUCCEEDED。
+      requestBody: {$ref: '#/components/requestBodies/Lease'}
+      responses:
+        '200':
+          description: 终态
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+  /api/worker/runs/{runId}/fail:
+    parameters:
+      - {$ref: '#/components/parameters/RunId'}
+    post:
+      operationId: failRun
+      description: 预算耗尽或worker内部错误导致case无法继续时标记FAILED，保存已有checkpoint。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [leaseToken, code, message]
+              properties:
+                leaseToken: {type: string}
+                code: {type: string, minLength: 1, maxLength: 80}
+                message: {type: string, minLength: 1, maxLength: 4000}
+      responses:
+        '200':
+          description: FAILED
+          content:
+            application/json:
+              schema: {$ref: '#/components/schemas/RunView'}
+        default: {$ref: '#/components/responses/Error'}
+components:
+  securitySchemes:
+    ApiKey: {type: apiKey, in: header, name: X-API-Key}
+  parameters:
+    RunId:
+      name: runId
+      in: path
+      required: true
+      schema: {type: string, format: uuid}
+  requestBodies:
+    Lease:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [leaseToken]
+            properties:
+              leaseToken: {type: string, minLength: 1}
+  responses:
+    Error:
+      description: '400 参数错误；401 key错误；404未知资源；409状态/预算/lease/幂等冲突。code含LEASE_LOST、CASE_COMPLETED、ATTEMPTS_EXHAUSTED、BUDGET_EXHAUSTED、ATTEMPT_CONFLICT、DATA_CONFLICT等。'
+      content:
+        application/json:
+          schema:
+            type: object
+            required: [code, message]
+            properties:
+              code: {type: string}
+              message: {type: string}
+  schemas:
+    Config:
+      type: object
+      additionalProperties: false
+      properties:
+        mode: {type: string, enum: [mock, llm], default: mock}
+        model: {type: string, minLength: 1, maxLength: 200, description: 'mock默认mock-policy，llm默认deepseek-chat'}
+        boards:
+          type: array
+          minItems: 1
+          maxItems: 8
+          uniqueItems: true
+          description: 缺省为全部8种牌面。顺序决定case展开顺序。
+          items: {type: string, enum: [noQ_1, noQ_2, noQ_3, noQ_A2, noQ_A3, AJJ_2, QQQ_2, QQJ_3]}
+        ruleBase: {type: string, enum: [neutral, threat], default: neutral}
+        repeats: {type: integer, minimum: 1, maximum: 20, default: 1}
+        seed: {type: integer, format: int64, minimum: 0, maximum: 2147483647, default: 0}
+        temperature: {type: number, minimum: 0, maximum: 2, default: 0}
+        maxAttempts: {type: integer, minimum: 1, maximum: 5, default: 3}
+        maxCalls: {type: integer, minimum: 1, maximum: 10000, description: 缺省为totalCases乘maxAttempts}
+        timeoutSeconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+        maxOutputTokens: {type: integer, minimum: 1, maximum: 8192, default: 512}
+    RunView:
+      type: object
+      properties:
+        runId: {type: string, format: uuid}
+        status: {type: string, enum: [QUEUED, RUNNING, SUCCEEDED, FAILED, CANCELLED]}
+        config: {$ref: '#/components/schemas/Config'}
+        suiteVersion: {type: string, enum: [probe-v2]}
+        totalCases: {type: integer}
+        completedCases: {type: integer}
+        successCases: {type: integer}
+        failureCases: {type: integer}
+        callCount: {type: integer, description: 已预留调用次数，不等于确认的供应商计费次数}
+        createdAt: {type: string, format: date-time}
+        updatedAt: {type: string, format: date-time}
+        lastError: {type: string, nullable: true}
+    Case:
+      type: object
+      properties:
+        caseId: {type: string, example: 'QQJ_3_gun0:0'}
+        probeId: {type: string, example: QQJ_3_gun0}
+        repeatIndex: {type: integer}
+        seed: {type: integer, format: int64}
+    Claim:
+      type: object
+      properties:
+        runId: {type: string, format: uuid}
+        leaseToken: {type: string}
+        leaseSeconds: {type: integer}
+        leaseExpiresAt: {type: string, format: date-time}
+        config: {$ref: '#/components/schemas/Config'}
+        suiteVersion: {type: string, enum: [probe-v2]}
+        cases: {type: array, items: {$ref: '#/components/schemas/Case'}}
+        completedCaseIds: {type: array, items: {type: string}}
+    AttemptView:
+      type: object
+      properties:
+        attemptId: {type: string, format: uuid}
+        attemptNumber: {type: integer}
+        totalCalls: {type: integer}
+    Finish:
+      type: object
+      additionalProperties: false
+      required: [leaseToken, outcome, retryable, latencyMs, promptTokens, completionTokens, promptHash, modelVersion, suiteVersion, content]
+      description: SUCCESS必须带非null的wasChallenged/referenceDecision且errorType为null；ERROR必须带errorType且wasChallenged为null。
+      properties:
+        leaseToken: {type: string, minLength: 1}
+        outcome: {type: string, enum: [SUCCESS, ERROR]}
+        retryable: {type: boolean}
+        wasChallenged: {type: boolean, nullable: true}
+        referenceDecision: {type: boolean, nullable: true}
+        errorType: {type: string, nullable: true, enum: [FORMAT, RATE_LIMIT, TIMEOUT, NETWORK, AUTH, PROVIDER, INTERNAL]}
+        errorMessage: {type: string, nullable: true, maxLength: 4000}
+        latencyMs: {type: integer, format: int64, minimum: 0}
+        promptTokens: {type: integer, format: int64, minimum: 0}
+        completionTokens: {type: integer, format: int64, minimum: 0}
+        promptHash: {type: string, pattern: '^[a-fA-F0-9]{64}$'}
+        modelVersion: {type: string, minLength: 1, maxLength: 200}
+        suiteVersion: {type: string, enum: [probe-v2]}
+        content: {type: string, maxLength: 200000}
+        prompt: {type: string, nullable: true, maxLength: 100000, description: 可选完整prompt，提供时校验UTF-8 SHA-256等于promptHash}
+        requestId: {type: string, nullable: true, maxLength: 200, description: 供应商请求ID}
+        workerCodeHash: {type: string, nullable: true, pattern: '^[a-fA-F0-9]{64}$', description: worker源码指纹}
+    CaseResult:
+      allOf:
+        - {$ref: '#/components/schemas/Case'}
+        - type: object
+          description: Case元数据加最终Finish字段（移除leaseToken），包含attemptId/attemptNumber。
+          additionalProperties: true
+    Report:
+      type: object
+      properties:
+        runId: {type: string, format: uuid}
+        status: {type: string}
+        mode: {type: string, enum: [mock, llm]}
+        mock: {type: boolean}
+        suiteVersion: {type: string, enum: [probe-v2]}
+        totalCases: {type: integer}
+        completedCases: {type: integer}
+        successCases: {type: integer}
+        failureCases: {type: integer}
+        callCount: {type: integer}
+        challengeRate: {type: number, nullable: true}
+        agreementWithReference: {type: number, nullable: true}
+        p95LatencyMs: {type: integer, format: int64, nullable: true}
+        totalTokens: {type: integer, format: int64}
+        unfinishedAttempts: {type: integer, format: int64}
+        errorCounts: {type: object, additionalProperties: {type: integer, format: int64}}
+        lastError: {type: string, nullable: true}
+        referenceMetricNote: {type: string}
+        usageNote: {type: string}

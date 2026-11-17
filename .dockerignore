@@ -1,0 +1,13 @@
+.git
+.venv
+.local
+**/__pycache__
+**/target
+control-plane/data
+analysis/results
+analysis/runs
+demo_records
+game_records
+practice
+.env
+*.log

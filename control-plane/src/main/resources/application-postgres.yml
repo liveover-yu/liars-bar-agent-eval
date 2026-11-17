@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/liars_eval}
+    username: ${DATABASE_USER:liars_eval}
+    password: ${DATABASE_PASSWORD:liars_eval}
+    driver-class-name: org.postgresql.Driver

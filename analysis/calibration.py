@@ -3,10 +3,8 @@
 为什么需要标尺：上游只有「谁赢了」。赢 40% 算好还是算差，没有参照物
 无法回答——四个模型打，每人先验是 25%，赢 40% 可能只是运气。
 
-这里的标尺不是「更强的 AI」，而是一个可以手推的策略：牌堆 20 张、
-目标牌 6 张 + Joker 2 张 = 8 张合法牌，所以每个牌局状态下诈唬概率
-有一个可计算的下界。拿它做决定，再拿模型的决定跟它比，差值就是
-「校准误差」。
+这里比较手工启发式和留一局经验策略。随机发牌的超几何公式忽略了动作选择
+与出牌历史，不能充当真实博弈的策略无关真值，也不能直接把差异叫校准误差。
 
 诚实说明边界：这是**决策级反事实评估**，不是整局重放。我们假设对手
 的出牌序列不变，只替换质疑者的决定——因为一旦质疑成功/失败，小局会
@@ -52,19 +50,20 @@ def naive_bluff_prior(decision: Decision) -> float:
 
     P(诈唬) = 1 - P(手里合法牌 >= k)
 
-    这是**下界**：即使合法牌够，出牌者仍可能主动诈唬。所以标尺会偏保守
-    （更少质疑），它的 EV 优势里有一部分来自「不敢诈唬」——报告里会明说。
+    这是忽略出牌策略与历史的启发式先验，不是实际博弈的概率下界。
+    出牌张数和先前出牌都会改变手牌后验；这里只把它作为基线。
     """
     legal_outside = LEGAL_IN_DECK - decision.legal_in_challenger_hand
     unseen = DECK_SIZE - len(decision.challenger_hand)
-    hand_size = decision.actor_hand_size + decision.k
+    # records 已保存出牌前手牌数，不能再次加本手张数。
+    hand_size = decision.actor_hand_size
     p_honest = _hypergeom_at_least(unseen, legal_outside, hand_size, decision.k)
     return 1.0 - p_honest
 
 
 def hand_size_bucket(decision: Decision) -> int:
     """出牌者这一手之前的手牌数分桶。5 张 = 小局刚开始，越少越接近收尾。"""
-    return min(decision.actor_hand_size + decision.k, 5)
+    return min(decision.actor_hand_size, 5)
 
 
 def empirical_bluff_prior(
@@ -100,8 +99,7 @@ def lookup_prior(
     for key in ((k, hb, gun), (k, hb, -1), (k, -1, -1)):
         if key in table:
             return table[key]
-    total = sum(table.values()) / len(table) if table else 0.5
-    return total
+    return table.get((-1, -1, -1), 0.5)
 
 
 def empirical_table(decisions: list[Decision], holdout_game: str | None = None):
@@ -185,10 +183,8 @@ def gun_monotone(d: Decision) -> bool:
 def empirical_policy(decisions: list[Decision]) -> Policy:
     """留一局先验表当决策依据的策略。
 
-    和 ev_rational 的区别：ev_rational 假设对手「能出真牌就出真牌」，
-    把诈唬率压到 8.6%（实测 18.9%），于是几乎不敢质疑——它测的是
-    「如果模型都是诚实的」，不是真实牌桌。
-    这个版本从另外 49 局学诈唬率，是能实际对表的标尺。
+    和 ev_rational 的区别：该版本从其他局学条件诈唬率，减少对随机手牌
+    假设的依赖；但历史采样分布和长期策略仍限制其解释范围。
     """
     tables = {g: empirical_table(decisions, holdout_game=g) for g in {d.game_id for d in decisions}}
 
@@ -255,7 +251,7 @@ def evaluate_policy(policy: Policy, decisions: list[Decision]) -> PolicyResult:
         challenges=len(challenged),
         decisions=n,
         accuracy=len(correct) / len(challenged) if challenged else 0.0,
-        recall=len(correct) / sum(d.bluff for d in decisions) if decisions else 0.0,
+        recall=len(correct) / sum(d.bluff for d in decisions) if any(d.bluff for d in decisions) else 0.0,
         ev_total=ev_total,
         ev_per_100=100 * ev_total / n if n else 0.0,
         self_deaths=self_deaths,

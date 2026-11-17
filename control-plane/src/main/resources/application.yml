@@ -1,0 +1,28 @@
+server:
+  port: ${PORT:8080}
+  address: ${BIND_ADDRESS:127.0.0.1}
+spring:
+  jackson:
+    deserialization:
+      fail-on-unknown-properties: true
+  application:
+    name: liars-eval-control-plane
+  datasource:
+    url: ${DATABASE_URL:jdbc:h2:file:./data/eval;MODE=PostgreSQL;DATABASE_TO_LOWER=TRUE;DEFAULT_NULL_ORDERING=HIGH;WRITE_DELAY=0}
+    username: ${DATABASE_USER:sa}
+    password: ${DATABASE_PASSWORD:}
+    hikari:
+      maximum-pool-size: 10
+  flyway:
+    enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: never
+eval:
+  api-key: ${LIARS_CONTROL_API_KEY:local-dev-key-change-me}
+  lease-seconds: ${EVAL_LEASE_SECONDS:30}

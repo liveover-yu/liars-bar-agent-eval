@@ -1,0 +1,23 @@
+{
+  "runId": "aab03168-2c71-436a-aeec-0acce7129c2f",
+  "status": "FAILED",
+  "mode": "llm",
+  "suiteVersion": "probe-v2",
+  "totalCases": 48,
+  "completedCases": 48,
+  "successCases": 47,
+  "failureCases": 1,
+  "callCount": 48,
+  "challengeRate": 0.3617021276595745,
+  "agreementWithReference": 0.46808510638297873,
+  "p95LatencyMs": 5118,
+  "totalTokens": 51683,
+  "unfinishedAttempts": 0,
+  "errorCounts": {
+    "FORMAT": 1
+  },
+  "lastError": "FORMAT: JSON 代码围栏不完整",
+  "referenceMetricNote": "在probe-v2外生张数/诚实优先/单步效用假设下的参考一致率",
+  "usageNote": "callCount为已预留调用次数；未知结果attempt仍占预算，token仅统计已回传值",
+  "mock": false
+}

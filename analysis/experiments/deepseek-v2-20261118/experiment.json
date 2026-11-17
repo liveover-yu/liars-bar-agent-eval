@@ -1,0 +1,101 @@
+{
+  "schemaVersion": "liars-live-experiment-v1",
+  "mode": "llm",
+  "suiteVersion": "probe-v2",
+  "requestedModel": "deepseek-chat",
+  "providerHost": "api.deepseek.com",
+  "startedAt": "2026-11-17T16:17:53.730871+00:00",
+  "finishedAt": "2026-11-17T16:20:12.010271+00:00",
+  "status": "COMPLETED_WITH_ERRORS",
+  "plan": {
+    "ruleBases": [
+      "neutral",
+      "threat"
+    ],
+    "boards": [
+      "noQ_1",
+      "noQ_2",
+      "noQ_3",
+      "noQ_A2",
+      "noQ_A3",
+      "AJJ_2",
+      "QQQ_2",
+      "QQJ_3"
+    ],
+    "repeats": 1,
+    "seed": 42,
+    "temperature": 0,
+    "casesPerRun": 48,
+    "maxCallsPerRun": 48,
+    "totalCallLimit": 96,
+    "maxAttempts": 1,
+    "timeoutSeconds": 60,
+    "maxOutputTokens": 1024,
+    "note": "one response per fixed state; descriptive pilot, no significance or generalization claim"
+  },
+  "runs": [
+    {
+      "ruleBase": "neutral",
+      "idempotencyKey": "live-e2dc4b47-7a0b-4655-88b5-752f94bc96f6",
+      "reportFile": "neutral/report.json",
+      "resultsFile": "neutral/results.json",
+      "runFile": "neutral/run.json",
+      "requestedConfig": {
+        "mode": "llm",
+        "model": "deepseek-chat",
+        "boards": [
+          "noQ_1",
+          "noQ_2",
+          "noQ_3",
+          "noQ_A2",
+          "noQ_A3",
+          "AJJ_2",
+          "QQQ_2",
+          "QQJ_3"
+        ],
+        "ruleBase": "neutral",
+        "repeats": 1,
+        "seed": 42,
+        "temperature": 0,
+        "maxAttempts": 1,
+        "maxCalls": 48,
+        "timeoutSeconds": 60,
+        "maxOutputTokens": 1024
+      },
+      "runId": "aab03168-2c71-436a-aeec-0acce7129c2f",
+      "status": "FAILED"
+    },
+    {
+      "ruleBase": "threat",
+      "idempotencyKey": "live-66e1fee7-29c8-4622-baa1-53981e2de887",
+      "reportFile": "threat/report.json",
+      "resultsFile": "threat/results.json",
+      "runFile": "threat/run.json",
+      "requestedConfig": {
+        "mode": "llm",
+        "model": "deepseek-chat",
+        "boards": [
+          "noQ_1",
+          "noQ_2",
+          "noQ_3",
+          "noQ_A2",
+          "noQ_A3",
+          "AJJ_2",
+          "QQQ_2",
+          "QQJ_3"
+        ],
+        "ruleBase": "threat",
+        "repeats": 1,
+        "seed": 42,
+        "temperature": 0,
+        "maxAttempts": 1,
+        "maxCalls": 48,
+        "timeoutSeconds": 60,
+        "maxOutputTokens": 1024
+      },
+      "runId": "113fa817-8b24-47dc-bd84-ac51a1168c88",
+      "status": "SUCCEEDED"
+    }
+  ],
+  "statusMeaning": "Collection status; original task statuses and failed cases are preserved."
+}

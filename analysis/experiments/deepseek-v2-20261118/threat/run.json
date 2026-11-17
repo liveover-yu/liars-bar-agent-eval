@@ -1,0 +1,35 @@
+{
+  "runId": "113fa817-8b24-47dc-bd84-ac51a1168c88",
+  "status": "SUCCEEDED",
+  "config": {
+    "mode": "llm",
+    "model": "deepseek-chat",
+    "boards": [
+      "noQ_1",
+      "noQ_2",
+      "noQ_3",
+      "noQ_A2",
+      "noQ_A3",
+      "AJJ_2",
+      "QQQ_2",
+      "QQJ_3"
+    ],
+    "ruleBase": "threat",
+    "repeats": 1,
+    "seed": 42,
+    "temperature": 0.0,
+    "maxAttempts": 1,
+    "maxCalls": 48,
+    "timeoutSeconds": 60,
+    "maxOutputTokens": 1024
+  },
+  "suiteVersion": "probe-v2",
+  "totalCases": 48,
+  "completedCases": 48,
+  "successCases": 48,
+  "failureCases": 0,
+  "callCount": 48,
+  "createdAt": "2026-11-17T16:17:53.911Z",
+  "updatedAt": "2026-11-17T16:20:10.156Z",
+  "lastError": null
+}

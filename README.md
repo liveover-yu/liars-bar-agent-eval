@@ -1,178 +1,280 @@
-# Liars Bar LLM
+# Liars Bar Agent Eval
 
-一个由大语言模型驱动的AI版骗子酒馆对战框架
+**基于 Spring Boot 的 LLM Agent 评测任务平台，支持调用预算、故障接管与断点恢复。**
 
-## 文件结构
+Java 21 · Spring Boot 3.5 · PostgreSQL · Python · Docker Compose
 
-程序主要分为两部分，游戏主体和分析工具
+[项目概况](#项目概况) · [核心设计](#核心设计) · [快速启动](#快速启动) · [接入 DeepSeek](#接入-deepseek) · [实验与验证](#实验与验证) · [文档导航](#文档导航)
 
-### 游戏主体
+## 项目概况
 
-`game.py` 骗子酒馆游戏主程序
+Liars Bar Agent Eval 以骗子酒馆的隐藏信息决策为评测场景，将“准备场景、调用模型、校验动作、统计结果”组织成可持久化、可恢复的后台任务。
 
-`player.py` 参与游戏的LLM智能体
+批量模型评测会遇到重复提交、请求超时、进程退出、费用失控和结果难以复现等问题。本项目将任务管理与模型执行分离：**Spring Boot 负责状态和一致性，Python Worker 负责模型调用与判分**，通过 REST 协议完成领取、续租、预算预留和结果回传。
 
-`game_record.py` 用于保存和提取游戏记录
+一次任务的完整流程是：
 
-`llm_client.py` 用于配置模型接口和发起LLM请求
+> 提交评测配置 → 生成确定性样本 → Worker 领取任务 → 预留调用预算 → 请求模型 → 校验动作 → 保存检查点 → 查询报告
 
-`multi_game_runner.py` 用于批量运行多轮游戏
+平台提供 REST API、命令行实验工具和可复现图表，适合演示异步任务调度、数据库并发控制，以及 LLM 应用中的失败处理与实验追溯。
 
-### 分析工具
+### 核心能力
 
-`game_analyze.py` 用于统计所有对局数据
-
-`player_matchup_analyze.py` 用于提取互为对手的AI间的对局记录进行分析
-
-`json_convert.py` 用于将json游戏记录转为可读文本
-
-## 配置
-
-使用conda环境配置相应依赖包：
-
-```
-pip install openai
-```
-
-本项目的API配置在`llm_client.py`中。
-
-本项目利用了New API https://github.com/Calcium-Ion/new-api?tab=readme-ov-file 配置了统一的接口调用格式。使用时需自行配置相应模型的API接口。
-
-也可以采用类似的API管理项目One API https://github.com/songquanpeng/one-api 实现统一的接口调用。
-
-## 使用方法
-
-### 运行
-
-完成项目配置后，在`game.py`和`multi_game_runner.py`主程序入口的`player_configs`中设置正确的模型名称
-
-运行单局游戏：
-```
-python game.py
-```
-
-运行多局游戏：
-```
-python multi_game_runner.py -n 10
-```
-在`-n`后指定你希望运行的游戏局数，默认为10局
-
-### 分析
-
-游戏记录会以json形式保存在目录下的`game_records`文件夹中
-
-将json文件转为可读性更强的文本格式，转换后的文件会保存在目录下的`converted_game_records`文件夹中
-
-```
-python json_convert.py
-```
-
-提取所有游戏中AI之间两两对决的对局，转换后的文件会保存在目录下的`matchup_records`文件夹中
-
-```
-python player_matchup_analyze.py
-```
-
-统计并打印所有的对局数据
-
-```
-python game_analyze.py
-```
-
-## Demo
-
-项目已将 DeepSeek-R1、o3-mini、Gemini-2-flash-thinking、Claude-3.7-Sonnet 四个模型作为玩家运行了50局，记录存放在`demo_records`文件夹中。
-
-## 已知问题
-
-模型在出牌和质疑阶段的输出可能不稳定，当输出无法满足游戏规定时，会自动重试。如果多次因为输出问题中断运行，可在`player.py`的`choose_cards_to_play`和`decide_challenge`中增加调用大模型的重试次数，或修改`prompt`文件夹中的`play_card_prompt_template.txt`和`challenge_prompt_template.txt`提示词强化对输出格式的限制（可能对模型的推理能力有一定影响）。
-
----
-
-## 决策级评估层（本仓库新增）
-
-上游只回答一个问题：**谁赢了**。但赢得多不等于打得对——四个模型同桌，总有人赢，那是运气还是判断力，从胜场数里看不出来。
-
-所以这一层补的是另一件事：**把每一手决策单独拎出来，跟一个能算出来的正确答案对表**。骗子酒馆适合做这件事，因为规则有限——牌堆固定、左轮六个仓位、下一枪命中率就是 `1/(6−g)`——正确答案可以手算，不需要更强的模型来当裁判。
-
-两条路。一是用上游现成的 50 局记录离线还原决策，不花钱；二是把牌局冻结成一个瞬间、只问模型一个决策，每次 1 次调用，比整局便宜两个数量级，才有统计功效。完整报告在 `analysis/results/REPORT.md`。
-
-```bash
-python -m analysis.records    # 从 50 局记录里还原出 1100 个质疑决策点
-python -m analysis.report     # 生成 REPORT.md 和 report.json
-python -m analysis.figures    # 从探针结果渲染 docs/ 下的 SVG 图
-python simulate.py -n 400     # 四个同策略 bot 的胜率基线 + 座位效应
-python -m analysis.probe --dry-run                    # 看探针 prompt，不花钱
-python -m analysis.probe --rule-base both --repeats 5  # 跑探针，需要 API key
-```
-
-### 先说离线那层
-
-50 局、610 个小局、1100 个质疑决策点：
-
-| 指标 | 值 | 95% CI |
+| 能力 | 实现方式 | 解决的问题 |
 |---|---|---|
-| 诈唬率（这一手有不合法牌） | 18.8% | [16.6%, 21.2%] |
-| 质疑率 | 55.4% | [52.4%, 58.3%] |
-| 质疑准确率 P(诈唬 \| 质疑) | 22.0% | [18.9%, 25.5%] |
-| 漏检率 P(诈唬 \| 不质疑) | 14.9% | [12.0%, 18.3%] |
+| 幂等提交 | `Idempotency-Key`、规范化配置哈希与唯一约束 | 客户端重试不会创建重复任务；同键不同配置返回 409 |
+| 持久化任务 | `run → case → attempt` 数据模型与显式状态机 | 任务进度、失败和调用历史能够独立查询与恢复 |
+| 预算控制 | 调用前预留 attempt，事务与行锁保护计数 | 单样本与整批任务均有调用上限，重启不重置预算 |
+| 故障接管 | 租约、后台心跳与 token 校验 | Worker 退出后可接管，旧 Worker 无法覆盖新结果 |
+| 检查点恢复 | case 终态与结果在事务中落库 | 接管或恢复任务时跳过已完成样本 |
+| 可追溯报告 | 原始 prompt / 响应、源码指纹、模型名、usage 与延迟 | 能从聚合指标定位到具体输入、输出和执行版本 |
 
-质疑的准确率只有 22%，五次质疑里四次是错的。它确实比不质疑稍微容易碰上诈唬（+7.1%，置换检验 p=0.0027），但这点信号几乎没用。
+## 核心设计
 
-有个看着很漂亮、实际站不住的发现：按自己枪膛分组，质疑率从 0 枪的 43% 一路涨到 5 枪的 73%，像是「越接近实弹越敢赌」。但枪膛编号和游戏进程高度相关——枪膛越满，往往越是残局。把枪膛、对手枪膛、小局编号、人数一起放进逻辑回归之后，自己的枪膛不再显著（z=+0.70），显著的是**对手**的枪膛（z=+2.74）。真实结论是：模型响应的是"对方离实弹有多近"，不是"我自己挨枪的概率"。这个更正本身，比原来那句漂亮话有用。
-
-把这些决策代入 EV 标尺，模型的实际行为是 **−7.43 EV/100 决策**，比完全不质疑（0.00）还差，离完美信息上界（+5.06）很远。
-
-### 再说探针：它为什么会反着来
-
-探针的做法是冻结一个牌局，只问模型"你质不质疑"。8 个牌面 × 6 个枪膛位 × 2 种规则文本 × 5 次重复，`deepseek-chat`，480 次调用，0 次格式失败。
-
-**正确答案怎么定。** 质疑者看得见自己的 5 张牌，所以知道 15 张暗牌里还剩几张能当目标牌用（目标牌本身 + Joker）。对手这一手之前持 5 张，从中抽到目标牌的张数服从超几何分布；抽到的张数少于他宣称的张数时，他**被迫**诈唬：
-
+```mermaid
+flowchart LR
+    Caller["调用方 / 实验脚本"] --> API["Spring Boot REST API"]
+    API --> Service["任务状态机、幂等、租约、预算"]
+    Service --> DB[("PostgreSQL / H2")]
+    W1["Python Worker 1"] -->|"领取 / 心跳 / 预留 / 回传"| API
+    W2["Python Worker 2"] -->|"领取 / 心跳 / 预留 / 回传"| API
+    W1 --> Eval["版本化场景、动作校验、条件评分"]
+    W2 --> Eval
+    Eval --> Provider["DeepSeek / OpenAI 兼容接口"]
+    Eval --> Mock["免费 mock"]
 ```
-P(被迫诈唬) = 1 − P(对手手里目标牌数 ≥ 宣称张数)
+
+- **事务范围**：数据库事务只覆盖领取、预算与结果写入；模型 HTTP 请求在事务外执行。
+- **并行粒度**：多个 Worker 并行执行不同任务，同一任务同时只有一个有效租约持有者。
+- **去重边界**：任务创建、调用预留、结果回传分别保证本地幂等。模型已回答但 Worker 未回传时，无法保证供应商只执行一次；未知 attempt 保留预算占用。
+- **部署形态**：一个 Spring Boot 应用、独立数据库和可增加实例的 Python Worker。数据库协调任务领取，当前规模无需引入额外消息中间件。
+
+技术栈：
+
+| 层次 | 技术与职责 |
+|---|---|
+| Java 后端 | Java 21、Spring Boot 3.5.7、Spring MVC、Bean Validation、统一异常处理 |
+| 数据与事务 | Spring JDBC / JdbcTemplate、PostgreSQL 16、H2、Flyway、HikariCP |
+| 评测执行 | Python 3.11、OpenAI 兼容 SDK、严格 JSON 动作契约、分类重试 |
+| 部署与验证 | Docker Compose、Actuator 健康检查、JUnit / MockMvc、Python unittest、GitHub Actions 配置 |
+| 数据展示 | Matplotlib、SVG / PNG、带来源 SHA-256 的绘图数据 |
+
+详细的分层、任务状态机、并发时序与取舍见 [架构说明](docs/architecture.md)。
+
+## 快速启动
+
+### 1. 启动 Docker 服务
+
+需要 **Docker Desktop / Docker Engine 与 Compose v2**。Java、Maven、Python 均由镜像提供；运行免费示例不需要模型 API Key。以下命令使用 PowerShell，在仓库根目录执行。
+
+```powershell
+git clone https://github.com/liveover-yu/liars-bar-agent-eval.git
+cd liars-bar-agent-eval
+
+# 已有 .env 时保留原配置
+if (-not (Test-Path .env)) { Copy-Item .env.example .env }
+docker compose up --build -d --scale worker=2
+docker compose ps
 ```
 
-这是下界，没算"手里够牌但主动诈唬"。另一边是质疑的盈亏平衡点 `p* = r_self / (r_self + r_actor)`，其中 `r = 1/(6−g)`。下界高过 `p*` 时，质疑无条件正确；下界低于门槛时，只能说"按保守标尺不该质疑"，不能断言一定错。
+Compose 启动 PostgreSQL、Spring Boot 和两个 Worker。首次启动需要拉取镜像和安装依赖；等待服务就绪后检查：
 
-> 第一版探针拿「这手牌是不是诈唬」当正确答案，是错的。诈唬与否是发牌结果，模型看不见，所以 bluff/honest 两组渲染出来的 prompt 逐字节相同，测到的只是采样误差。发现这一点之后整个设计推倒重来，才有下面这些东西。
+```powershell
+Invoke-RestMethod http://127.0.0.1:8080/actuator/health
+# 预期：status 为 UP
+```
 
-![每个牌面的质疑率](docs/fig_boards.svg)
+API 地址为 `http://127.0.0.1:8080`。数据库保存在命名卷中；`docker compose stop` 停止服务，`docker compose up -d --scale worker=2` 再次启动。
 
-蓝条是下界高过门槛、质疑无条件正确的牌面，灰条是不该质疑的。最刺眼的是最下面两行：手里攥着 3 张 Q + 2 张 Joker、或者 5 张 Q（下界 0.978 / 0.758，对方几乎必然在出假牌），模型的质疑率是 **0%**。而手里一张 Q 都没有、下界只有 0.427 的那一档，质疑率是 **100%**。
+默认配置使用本地开发密钥。若修改了 `.env` 中的 `LIARS_CONTROL_API_KEY`，下方请求头也需同步修改。镜像拉取受限或已有 jar 时，可使用 [预打包构建入口](docs/docker-verification.md#本次实际构建入口)。
 
-![同一牌面跨枪膛](docs/fig_gun.svg)
+### 2. 完成一次免费评测
 
-换到枪膛这条轴上看更清楚。以「K, A, K, Joker, A 宣称 3 张 Q」为例，橙线是质疑的门槛，蓝线是模型的实测质疑率。门槛从 gun0 的 50% 升到 gun5 的 86%，正确动作在 gun1 之后就已经翻转成"不该质疑"，蓝线却一路升到 100%——**在自己挨枪概率最高的位置，它最激进**。
+容器中的 Worker 会自动领取任务。复制以下代码，创建 6 个样本的 mock 任务，并等待报告：
 
-![区分度对比](docs/fig_groups.svg)
+```powershell
+$headers = @{
+  'X-API-Key' = 'local-dev-key-change-me'
+  'Idempotency-Key' = [guid]::NewGuid().ToString()
+}
+$body = @{
+  mode = 'mock'
+  boards = @('QQJ_3')
+  repeats = 1
+  seed = 42
+  maxAttempts = 1
+  maxCalls = 6
+} | ConvertTo-Json
 
-把 240 次调用按"该不该质疑"合并：该质疑组 9.2%，不该质疑组 40.6%，区分度 **−31.3%**（置换检验 p<0.0001）。换成中性规则文本后是 6.2% 对 36.6%，区分度 −30.4%。方向稳定，不是噪声。
+$run = Invoke-RestMethod -Method Post `
+  -Uri 'http://127.0.0.1:8080/api/runs' `
+  -Headers $headers -ContentType 'application/json' -Body $body
 
-**那到底是哪里错了？** 原始理由里写得比结论清楚。手里 5 张 Q 那一次，它说：
+$deadline = (Get-Date).AddSeconds(60)
+do {
+  $state = Invoke-RestMethod `
+    -Uri "http://127.0.0.1:8080/api/runs/$($run.runId)" -Headers $headers
+  if ($state.status -in @('SUCCEEDED', 'FAILED', 'CANCELLED')) { break }
+  Start-Sleep -Seconds 1
+} while ((Get-Date) -lt $deadline)
 
-> 「Player_A 宣称的 2 张 Q 中至少有 1 张必然是假牌，质疑成功率极高。但考虑到这是第一轮……过早暴露自己的手牌信息……因此选择不质疑」
+Invoke-RestMethod `
+  -Uri "http://127.0.0.1:8080/api/runs/$($run.runId)/report" -Headers $headers
+```
 
-手里 5 张 A 那一次，它说：
+正常完成时，报告包含 `status=SUCCEEDED`、`totalCases=6`、`successCases=6`、`callCount=6`、`totalTokens=0`。mock 使用固定种子的模拟动作，验证完整执行链路，不访问模型供应商。
 
-> 「我手里 5 张全是 A，一张 Q 都没有……他手里拿到至少 2 张 Q 的概率并不算特别高……首轮质疑成本相对可控」
+### 3. 查询、取消与恢复
 
-牌数它都算对了（"至少一张必然是假牌""概率不算高"），结论却完全颠倒。它真正在执行的规则是「手里的目标牌越多 = 自己越安全 = 越该保守」，而不是「对手手里还够不够牌凑出他宣称的东西」。**不是判断不准，是信息用反了。**
+| 操作 | 接口 |
+|---|---|
+| 创建 / 列出任务 | `POST /api/runs` · `GET /api/runs` |
+| 查询状态 | `GET /api/runs/{runId}` |
+| 分页结果 / 聚合报告 | `GET /api/runs/{runId}/results` · `GET /api/runs/{runId}/report` |
+| 取消 / 恢复 | `POST /api/runs/{runId}/cancel` · `POST /api/runs/{runId}/resume` |
 
-顺带把「生死游戏/删除代码」那句做了消融：威胁版比中性版整体质疑率高 3~4 个百分点，但**区分度几乎不变**。这句话抬高的是攻击性，不是校准能力。
+所有 `/api/**` 请求携带 `X-API-Key`。恢复要求存在未完成样本及剩余预算；已完成的成功、失败检查点和预算计数都会保留。请求结构与错误码见 [接口说明](control-plane/README.md) 和 [OpenAPI 契约](control-plane/openapi.yaml)。
 
-### 补上的实验控制
+<details>
+<summary>本机开发：Spring Boot + H2 + Python Worker</summary>
 
-上游缺的东西不少，这些是补的：
+需要 JDK 21、Maven 3.9+、Python 3.11+。在仓库根目录执行；若 Docker 栈已占用 8080，先运行 `docker compose stop`。
 
-- `llm_client.py` 显式传 `temperature` / `seed`，并把原始请求响应落盘——上游一个都没设，采样噪声和策略差异根本分不开。
-- `multi_game_runner.py` 每局独立重试并记录失败、按局设种子、座位轮换——上游任何一局格式失败会崩掉整批付费调用，而且 50 局座位顺序完全固定。
-- `player.py` 统计格式失败次数，而不是只 print 一下。
-- 玩家名改成 `Player_A/B/C/D`——上游直接用模型品牌名，提示里写的就是"你在和 DeepSeek 打"，这本身是污染变量。
-- `baseline_bot.py` + `simulate.py` 提供非 LLM 参照物：四个同策略 bot 跑下来，固定座位之间的胜率极差就有 20 个百分点，说明上游的胜率对比必须先扣掉座位效应。
+```powershell
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+mvn -f control-plane/pom.xml verify
 
-### 这个实验的边界
+$env:LIARS_CONTROL_API_KEY = 'local-dev-key-change-me'
+java -jar control-plane/target/liars-eval-control-plane-0.1.0.jar
+```
 
-只有 DeepSeek 一个模型，跨厂商对比还没做。离线那 50 局是上游跑的，没法重放，所以 EV 数字是决策级反事实——假设出牌序列不变、只替换质疑决定，不是整局结果。下界只排除"必然诈唬"这一个方向，反方向不能断言模型错。这些都写在报告里了，没有藏。
+新终端进入同一目录，启动 Worker：
 
-完整报告见 `analysis/results/REPORT.md`。
+```powershell
+$env:LIARS_CONTROL_API_KEY = 'local-dev-key-change-me'
+.\.venv\Scripts\python.exe -m eval_worker --server http://127.0.0.1:8080
+```
+
+接着执行上面的免费任务示例。默认 H2 文件写入启动目录的 `data/`，重启时使用同一工作目录。原生 Java / Python 不自动读取 `.env`，需要使用环境变量。Linux / macOS 将 Python 路径替换为 `.venv/bin/python`，环境变量使用 `export`。
+
+</details>
+
+## 接入 DeepSeek
+
+在运行 Compose 的终端中设置凭证，并更新 Worker 环境；应用密钥与模型供应商密钥是两套不同配置：
+
+```powershell
+$env:LIARS_API_BASE_URL = 'https://api.deepseek.com'
+$env:LIARS_API_KEY = '<你的 DeepSeek API Key>'
+docker compose up -d --no-build --no-deps --force-recreate --scale worker=2 worker
+```
+
+也可以将这两项写入 `.env` 后执行相同命令。Shell 中的同名环境变量优先于 `.env`。供应商凭证仅保存在 Worker 环境，不进入任务请求与 Java 数据库。
+
+配置 Key 不会自动调用模型。普通任务显式设置 `mode='llm'`、`model='deepseek-chat'` 后才访问供应商。使用本机 Worker 时，在它的启动终端设置相同变量即可。
+
+仓库提供两组规则、总上限 96 次调用的实验脚本。运行客户端脚本需要本机 Python 3.11+，这份脚本只使用标准库：
+
+```powershell
+# 默认只打印实验计划，不调用模型
+python scripts/run_model_experiment.py
+
+# 实际执行：产生供应商消耗；目录已存在时拒绝覆盖
+python scripts/run_model_experiment.py --execute `
+  --out-dir analysis/experiments/deepseek-v2-rerun-001
+```
+
+脚本通过 Java API 创建任务，容器中的 Worker 完成调用，随后导出配置、逐样本原始结果和聚合报告。若更改过控制面密钥，运行客户端前也需设置对应的 `LIARS_CONTROL_API_KEY`。
+
+## 实验与验证
+
+### 后端执行验证
+
+| 验证 | 实测结果 |
+|---|---|
+| Java 集成测试 | 17 项通过，覆盖并发领取、幂等、预算竞争、租约与终态约束 |
+| Docker mock 联调 | 8 个任务、72 个成功样本，538 项验收断言通过 |
+| 调用上限 | `maxCalls=1` 的任务在一次预留后按预期停止 |
+| 多 Worker 与持久化 | 两个 Worker 都实际领取任务；PostgreSQL 和 Java 重启后 9 个任务的数据保持 |
+
+Docker 实测采用预打包 jar 与已准备的兼容基础镜像，命令、构建路径和证据位置见 [Docker 验收记录](docs/docker-verification.md)。这些数字是本地功能与故障验证，未作为生产吞吐指标。
+
+### 本项目采集的 DeepSeek 实验
+
+2026-11-18，通过 Java 控制面和两个 Docker Worker，执行 `probe-v2` 的 8 牌面 × 6 枪膛状态。两套规则每状态各调用一次，无重试，共 96 次调用。请求名为 `deepseek-chat`，供应商返回模型字段为 `deepseek-flash`。
+
+| 规则文本 | 有效结果 / 计划样本 | 格式失败 | 有效响应参考一致率 |
+|---|---|---|---|
+| 中性规则 | 47/48 | 1 | 22/47 = 46.8% |
+| 生存威胁规则 | 48/48 | 0 | 18/48 = 37.5% |
+
+![DeepSeek 实验的覆盖率与条件参考一致性](docs/figures/real-deepseek-outcomes.svg)
+
+每次响应的输入、原始输出、错误、源码指纹、usage 和延迟均已保存。格式失败未被补跑替换；任务执行状态与动作质量分别报告。
+
+评分采用公开生成假设下的单步效用参考，不等于整局胜率。全量套件的“永不质疑”基线为 35/48（72.9%）；只比较中性规则的有效子集时，基线为 35/47（74.5%）。本次模型结果均未超过对应基线，每状态仅一次采样，作为初步实验保留。完整分母、任务 ID 与原始材料见 [实验报告](docs/evaluation-results.md)，推导和适用范围见 [评测方法](docs/evaluation-methodology.md)。
+
+<details>
+<summary>运行自动验证与重绘实验图表</summary>
+
+本机开发环境准备完成后执行：
+
+```powershell
+mvn -f control-plane/pom.xml verify
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+.\.venv\Scripts\python.exe -m unittest discover -s practice/offline_table/tests -v
+.\.venv\Scripts\python.exe scripts/smoke_platform.py
+```
+
+`smoke_platform.py` 使用随机端口、临时数据库和独立应用密钥，实际启动并重启 Java，验证 Python 补齐检查点。Docker 栈已启动时，也可直接运行标准库客户端：
+
+```powershell
+python scripts/smoke_compose.py
+```
+
+重新绘制已采集的数据，不调用模型：
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements-viz.txt
+.\.venv\Scripts\python.exe scripts/plot_evaluation.py `
+  --experiment-dir analysis/experiments/deepseek-v2-20261118
+```
+
+输出包含 SVG、PNG 与来源指纹。重新生成中文图表需 Microsoft YaHei 或 Noto CJK 等字体；浏览已导出的 SVG 无需安装字体。GitHub Actions 配置覆盖 Python、Java 与 H2 / PostgreSQL 联调，运行状态以实际 Actions 记录为准。
+
+</details>
+
+## 项目结构
+
+```text
+control-plane/            Spring Boot API、任务状态机、事务与 Flyway 迁移
+eval_worker/              任务领取、心跳、模型调用、分类重试与回传
+contracts/                版本化场景与跨语言 case 契约
+analysis/                 条件参考策略、探针与离线分析工具
+  experiments/            本项目新采集的配置、报告与原始响应
+scripts/                  联调验收、实验采集和图表生成
+docs/                     架构、评测方法、验收记录与图表
+tests/                    Python 回归与故障注入测试
+docker/                   Java / Python 构建入口
+compose.yaml              PostgreSQL + Spring Boot + Worker 部署
+```
+
+## 文档导航
+
+| 文档 | 内容 |
+|---|---|
+| [架构说明](docs/architecture.md) | Agent 与后端架构、事务边界、状态机、租约接管与故障语义 |
+| [控制面说明](control-plane/README.md) | 配置、API、幂等与错误处理 |
+| [OpenAPI 契约](control-plane/openapi.yaml) | 请求、响应和接口结构 |
+| [评测方法](docs/evaluation-methodology.md) | 场景假设、概率推导、参考基线、指标分母与统计边界 |
+| [实验报告](docs/evaluation-results.md) | 本项目采集的数据、原始材料、图表与复现命令 |
+| [Docker 验收记录](docs/docker-verification.md) | 实际构建入口、双 Worker 联调与重启验证 |
+
+## 项目来源与实现范围
+
+项目在既有骗子酒馆 LLM 游戏代码上扩展。原有游戏、玩家反思、提示词与示例记录继续保留；新增工作集中在 Spring Boot 任务控制面、持久化执行协议、Python Worker、版本化条件评测、容器部署及本项目采集的实验。旧示例日志的玩家成绩不进入当前展示。
+
+当前 Java 平台调度单步条件探针，完整对局仍通过原有 Python 入口运行。后续方向包括整局任务接入、供应商统一限流、实验版本约束和更充分的重复实验。
+
+代码采用 [Apache License 2.0](LICENSE)。

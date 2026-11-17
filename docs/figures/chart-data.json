@@ -1,0 +1,2555 @@
+{
+  "schemaVersion": "evaluation-charts-v3",
+  "providerCallsDuringPlotting": 0,
+  "generator": {
+    "path": "scripts/plot_evaluation.py",
+    "sha256": "eabae8a1e54ace58640fcf3da7b5f8dbfd040190419b4ab536b8fa9a877d6789",
+    "normalization": "CRLF-to-LF"
+  },
+  "matplotlibVersion": "3.11.2",
+  "font": "Microsoft YaHei",
+  "v2Reference": {
+    "suiteVersion": "probe-v2",
+    "caseCount": 48,
+    "boards": [
+      "noQ_1",
+      "noQ_A2",
+      "noQ_2",
+      "AJJ_2",
+      "noQ_A3",
+      "noQ_3",
+      "QQQ_2",
+      "QQJ_3"
+    ],
+    "referenceChallengeCount": 13,
+    "sourceType": "解析计算，未调用模型",
+    "cases": [
+      {
+        "probeId": "noQ_1_gun0",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.5,
+        "margin": -0.4813519813519813,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_1_gun1",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.5454545454545454,
+        "margin": -0.5268065268065267,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_1_gun2",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.6000000000000001,
+        "margin": -0.5813519813519814,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_1_gun3",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.6666666666666666,
+        "margin": -0.648018648018648,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_1_gun4",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.75,
+        "margin": -0.7313519813519813,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_1_gun5",
+        "board": "noQ_1",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 1,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.018648018648018683,
+        "threshold": 0.8571428571428571,
+        "margin": -0.8384948384948384,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun0",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.5,
+        "margin": -0.31818181818181823,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun1",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.5454545454545454,
+        "margin": -0.36363636363636365,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun2",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.6000000000000001,
+        "margin": -0.4181818181818183,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun3",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.6666666666666666,
+        "margin": -0.48484848484848486,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun4",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.75,
+        "margin": -0.5681818181818182,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_2_gun5",
+        "board": "noQ_2",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.18181818181818177,
+        "threshold": 0.8571428571428571,
+        "margin": -0.6753246753246753,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_3_gun0",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.5,
+        "margin": 0.07342657342657344,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "noQ_3_gun1",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.5454545454545454,
+        "margin": 0.027972027972028024,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "noQ_3_gun2",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.6000000000000001,
+        "margin": -0.02657342657342665,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_3_gun3",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.6666666666666666,
+        "margin": -0.09324009324009319,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_3_gun4",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.75,
+        "margin": -0.17657342657342656,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_3_gun5",
+        "board": "noQ_3",
+        "challengerHand": [
+          "K",
+          "A",
+          "K",
+          "Joker",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.5734265734265734,
+        "threshold": 0.8571428571428571,
+        "margin": -0.28371628371628366,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun0",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.5,
+        "margin": -0.3997668997668997,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun1",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.5454545454545454,
+        "margin": -0.44522144522144513,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun2",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.6000000000000001,
+        "margin": -0.4997668997668998,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun3",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.6666666666666666,
+        "margin": -0.5664335664335663,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun4",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.75,
+        "margin": -0.6497668997668997,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A2_gun5",
+        "board": "noQ_A2",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.10023310023310028,
+        "threshold": 0.8571428571428571,
+        "margin": -0.7569097569097568,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun0",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.5,
+        "margin": -0.07342657342657344,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun1",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.5454545454545454,
+        "margin": -0.11888111888111885,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun2",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.6000000000000001,
+        "margin": -0.17342657342657353,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun3",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.6666666666666666,
+        "margin": -0.24009324009324007,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun4",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.75,
+        "margin": -0.32342657342657344,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "noQ_A3_gun5",
+        "board": "noQ_A3",
+        "challengerHand": [
+          "A",
+          "A",
+          "A",
+          "A",
+          "A"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.42657342657342656,
+        "threshold": 0.8571428571428571,
+        "margin": -0.43056943056943053,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun0",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.5,
+        "margin": -0.20629370629370625,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun1",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.5454545454545454,
+        "margin": -0.25174825174825166,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun2",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.6000000000000001,
+        "margin": -0.30629370629370634,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun3",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.6666666666666666,
+        "margin": -0.3729603729603729,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun4",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.75,
+        "margin": -0.45629370629370625,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "AJJ_2_gun5",
+        "board": "AJJ_2",
+        "challengerHand": [
+          "K",
+          "K",
+          "K",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.29370629370629375,
+        "threshold": 0.8571428571428571,
+        "margin": -0.5634365634365633,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "QQQ_2_gun0",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.5,
+        "margin": 0.2582417582417582,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQQ_2_gun1",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.5454545454545454,
+        "margin": 0.2127872127872128,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQQ_2_gun2",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.6000000000000001,
+        "margin": 0.15824175824175812,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQQ_2_gun3",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.6666666666666666,
+        "margin": 0.09157509157509158,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQQ_2_gun4",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.75,
+        "margin": 0.008241758241758212,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQQ_2_gun5",
+        "board": "QQQ_2",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Q",
+          "Q"
+        ],
+        "target": "Q",
+        "claimCount": 2,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.7582417582417582,
+        "threshold": 0.8571428571428571,
+        "margin": -0.09890109890109888,
+        "referenceChallenge": false
+      },
+      {
+        "probeId": "QQJ_3_gun0",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 0,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.5,
+        "margin": 0.478021978021978,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQJ_3_gun1",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 1,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.5454545454545454,
+        "margin": 0.4325674325674326,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQJ_3_gun2",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 2,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.6000000000000001,
+        "margin": 0.3780219780219779,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQJ_3_gun3",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 3,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.6666666666666666,
+        "margin": 0.31135531135531136,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQJ_3_gun4",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 4,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.75,
+        "margin": 0.228021978021978,
+        "referenceChallenge": true
+      },
+      {
+        "probeId": "QQJ_3_gun5",
+        "board": "QQJ_3",
+        "challengerHand": [
+          "Q",
+          "Q",
+          "Q",
+          "Joker",
+          "Joker"
+        ],
+        "target": "Q",
+        "claimCount": 3,
+        "actorHandSize": 5,
+        "challengerGun": 5,
+        "actorGun": 0,
+        "bluffProbability": 0.978021978021978,
+        "threshold": 0.8571428571428571,
+        "margin": 0.1208791208791209,
+        "referenceChallenge": true
+      }
+    ],
+    "sources": [
+      {
+        "path": "analysis/probe.py",
+        "sha256": "b2a1b7ffe5ddeb54c949d9184d0d7734669f7ef213c1dbc570f0c90df90aa220",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/risk.py",
+        "sha256": "6d48b043ed0638dd60fbee37b6f4bd1ea9acae0f7c725445b94271a9348dac61",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "contracts/probe-suite-v2.json",
+        "sha256": "2c2721923ce345510461867bf0b4209a3aee47c2a863fbe86ef8d448e8ccf5a1",
+        "normalization": "CRLF-to-LF"
+      }
+    ]
+  },
+  "experiment": {
+    "schemaVersion": "liars-live-experiment-v1",
+    "mode": "llm",
+    "suiteVersion": "probe-v2",
+    "requestedModel": "deepseek-chat",
+    "providerHost": "api.deepseek.com",
+    "status": "COMPLETED_WITH_ERRORS",
+    "startedAt": "2026-11-17T16:17:53.730871+00:00",
+    "finishedAt": "2026-11-17T16:20:12.010271+00:00",
+    "sources": [
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/experiment.json",
+        "sha256": "1ceed42e6ecc57e436e49e009c5bf172ebbcbced59d04e5a9e53a8878ba35454",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/neutral/run.json",
+        "sha256": "8503d0f5b6ef1e7d4556f5df3d835f23b45110306628e25fa0bef14a09a136f8",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/neutral/report.json",
+        "sha256": "a4b388a6fcd0d59645f5ed0ae7adb9892971e26abb8e0224b69d4c522fc86836",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/neutral/results.json",
+        "sha256": "59577c9f201dbcfcdd95bfc9f0238e96f7b4acc84b18c2aa1584d1c6ec8cee64",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/threat/run.json",
+        "sha256": "b2f538757a509e9e20725c2e0e595b8db31423e98b79b52a17f0ad3d3cd9d5be",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/threat/report.json",
+        "sha256": "56329da48d9f0656337ae5d02a68fc577d7c72a364f3616e22ca7f924a08b758",
+        "normalization": "CRLF-to-LF"
+      },
+      {
+        "path": "analysis/experiments/deepseek-v2-20261118/threat/results.json",
+        "sha256": "293ccc38c0be4a608c5f7333bf9a327d0828c78c1d40c80673e2dcb8b3e49853",
+        "normalization": "CRLF-to-LF"
+      }
+    ],
+    "runs": {
+      "neutral": {
+        "runId": "aab03168-2c71-436a-aeec-0acce7129c2f",
+        "status": "FAILED",
+        "config": {
+          "mode": "llm",
+          "model": "deepseek-chat",
+          "boards": [
+            "noQ_1",
+            "noQ_2",
+            "noQ_3",
+            "noQ_A2",
+            "noQ_A3",
+            "AJJ_2",
+            "QQQ_2",
+            "QQJ_3"
+          ],
+          "ruleBase": "neutral",
+          "repeats": 1,
+          "seed": 42,
+          "temperature": 0.0,
+          "maxAttempts": 1,
+          "maxCalls": 48,
+          "timeoutSeconds": 60,
+          "maxOutputTokens": 1024
+        },
+        "plannedCases": 48,
+        "completedCases": 48,
+        "successCases": 47,
+        "failureCases": 1,
+        "pendingCases": 0,
+        "callCount": 48,
+        "unfinishedAttempts": 0,
+        "totalTokens": 51683,
+        "p95LatencyMs": 5118,
+        "errorCounts": {
+          "FORMAT": 1
+        },
+        "modelVersions": [
+          "deepseek-flash"
+        ],
+        "workerCodeHashes": [
+          "cec047e245fd875f24aa57c2ae15d161687208185cffa07d2043ddc09ae618ee"
+        ],
+        "providerRequestIdsAvailable": 0,
+        "metrics": {
+          "coverage": {
+            "numerator": 47,
+            "denominator": 48,
+            "value": 0.9791666666666666
+          },
+          "agreementOnValid": {
+            "numerator": 22,
+            "denominator": 47,
+            "value": 0.46808510638297873
+          },
+          "agreementOnPlanned": {
+            "numerator": 22,
+            "denominator": 48,
+            "value": 0.4583333333333333
+          },
+          "referenceChallengeHit": {
+            "numerator": 2,
+            "denominator": 13,
+            "value": 0.15384615384615385
+          },
+          "referencePassHit": {
+            "numerator": 20,
+            "denominator": 35,
+            "value": 0.5714285714285714
+          },
+          "referenceChallengeHitOnValid": {
+            "numerator": 2,
+            "denominator": 12,
+            "value": 0.16666666666666666
+          },
+          "referencePassHitOnValid": {
+            "numerator": 20,
+            "denominator": 35,
+            "value": 0.5714285714285714
+          }
+        },
+        "classCoverage": {
+          "referenceChallenge": {
+            "numerator": 12,
+            "denominator": 13,
+            "value": 0.9230769230769231
+          },
+          "referencePass": {
+            "numerator": 35,
+            "denominator": 35,
+            "value": 1.0
+          }
+        },
+        "constantBaselines": {
+          "neverChallengeOnPlanned": {
+            "numerator": 35,
+            "denominator": 48,
+            "value": 0.7291666666666666
+          },
+          "alwaysChallengeOnPlanned": {
+            "numerator": 13,
+            "denominator": 48,
+            "value": 0.2708333333333333
+          },
+          "neverChallengeOnValid": {
+            "numerator": 35,
+            "denominator": 47,
+            "value": 0.7446808510638298
+          },
+          "alwaysChallengeOnValid": {
+            "numerator": 12,
+            "denominator": 47,
+            "value": 0.2553191489361702
+          }
+        },
+        "confusionOnValid": {
+          "truePositive": 2,
+          "trueNegative": 20,
+          "falsePositive": 15,
+          "falseNegative": 10
+        },
+        "cells": [
+          {
+            "probeId": "noQ_1_gun0",
+            "board": "noQ_1",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "c4da0af2de486320de9cd3e5c810eeffa291dac4de04ec5bd6255d782bd7a50b",
+            "requestId": null,
+            "seed": 42
+          },
+          {
+            "probeId": "noQ_1_gun1",
+            "board": "noQ_1",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "1c3215ebfabc6c128c3cde230fae6a89cf5eff4b12a8e0c1a3a444995a0c1a14",
+            "requestId": null,
+            "seed": 43
+          },
+          {
+            "probeId": "noQ_1_gun2",
+            "board": "noQ_1",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "737dad88ebb71e198bf8ccfb271f4a48804b3945f1abc4658c7150774dc35056",
+            "requestId": null,
+            "seed": 44
+          },
+          {
+            "probeId": "noQ_1_gun3",
+            "board": "noQ_1",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "249b54d9958652ef61aa4017440c0de06d99c4a80f6af34da892ace3c5fb03a5",
+            "requestId": null,
+            "seed": 45
+          },
+          {
+            "probeId": "noQ_1_gun4",
+            "board": "noQ_1",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "a5f636ffb96e33b25e54065835192b1077ea1927a48c65aa7362cba429831824",
+            "requestId": null,
+            "seed": 46
+          },
+          {
+            "probeId": "noQ_1_gun5",
+            "board": "noQ_1",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "e3c81d99e940d39acc489d0d3b0bacc99c4b944917a11afa8fe65276d88c1514",
+            "requestId": null,
+            "seed": 47
+          },
+          {
+            "probeId": "noQ_2_gun0",
+            "board": "noQ_2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "36cd3d36a6e78027cb658d71184013683d776e0f85ad2f7ea5097226805b299f",
+            "requestId": null,
+            "seed": 48
+          },
+          {
+            "probeId": "noQ_2_gun1",
+            "board": "noQ_2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "c9f2a87fb99a244a2087f9447e0842c727b9b14bdc9cc3aa376b1409b49a99c3",
+            "requestId": null,
+            "seed": 49
+          },
+          {
+            "probeId": "noQ_2_gun2",
+            "board": "noQ_2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "68ba327ba2b43a15ad7182f38dc34f2961fc9df68da6eeef5465b73e75e353f2",
+            "requestId": null,
+            "seed": 50
+          },
+          {
+            "probeId": "noQ_2_gun3",
+            "board": "noQ_2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "1823a63e3b1b8da2ab0e1c11c4294e2536a9d2827e94114b9c0e796d3f77d7e1",
+            "requestId": null,
+            "seed": 51
+          },
+          {
+            "probeId": "noQ_2_gun4",
+            "board": "noQ_2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "3ebe47e367c584001c0a57f9f2bf3518961d23463a7d34866ec014c8020902bb",
+            "requestId": null,
+            "seed": 52
+          },
+          {
+            "probeId": "noQ_2_gun5",
+            "board": "noQ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "43209c2228f81bee16533098788f7bbd91e2df87de113fa5d6aadcffafb0a411",
+            "requestId": null,
+            "seed": 53
+          },
+          {
+            "probeId": "noQ_3_gun0",
+            "board": "noQ_3",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "3f9be2c3505585fe5a548ce2dc14ff2d617ca17cc53864d02305f5c0de7b2565",
+            "requestId": null,
+            "seed": 54
+          },
+          {
+            "probeId": "noQ_3_gun1",
+            "board": "noQ_3",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "58c8cba051265644dad31fad0e5817bfe890e4e5863ce9501046b7a8e0f29a2c",
+            "requestId": null,
+            "seed": 55
+          },
+          {
+            "probeId": "noQ_3_gun2",
+            "board": "noQ_3",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "d6a8a35c1933cfab6bb0b01198ead8599213d0f8b3faeae93d59b0eb9523f35d",
+            "requestId": null,
+            "seed": 56
+          },
+          {
+            "probeId": "noQ_3_gun3",
+            "board": "noQ_3",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "d28f05d15bb346bfc46620e2fe92ba0479de92991ed251e3681fa6bea3f52064",
+            "requestId": null,
+            "seed": 57
+          },
+          {
+            "probeId": "noQ_3_gun4",
+            "board": "noQ_3",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "bf2b075521b6d55c1d10ddf30c843d46733fd0d873d3c9583dc5ba535cf7ddbf",
+            "requestId": null,
+            "seed": 58
+          },
+          {
+            "probeId": "noQ_3_gun5",
+            "board": "noQ_3",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "3ab3bbe8b8df82c5ddc147888bc452c048e17cba85da19657661305ac04f19a4",
+            "requestId": null,
+            "seed": 59
+          },
+          {
+            "probeId": "noQ_A2_gun0",
+            "board": "noQ_A2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "8eff009926a89b3c45e1bd72c78f9e6baf78a89d36fe38a0c52d166fcb2c951e",
+            "requestId": null,
+            "seed": 60
+          },
+          {
+            "probeId": "noQ_A2_gun1",
+            "board": "noQ_A2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "fbff6ce7a57689967b83a2782d9f8638338aedb7896c75278eaa2d4a8e63ab14",
+            "requestId": null,
+            "seed": 61
+          },
+          {
+            "probeId": "noQ_A2_gun2",
+            "board": "noQ_A2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "23682a13c7d7252c813ad0a7052e1766be2eafe7ab05761d9612dc77bebb8518",
+            "requestId": null,
+            "seed": 62
+          },
+          {
+            "probeId": "noQ_A2_gun3",
+            "board": "noQ_A2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "404e905d6b693c5489bac3ffc1330aac93695a5ab1fceb1365747b0cdbeed39d",
+            "requestId": null,
+            "seed": 63
+          },
+          {
+            "probeId": "noQ_A2_gun4",
+            "board": "noQ_A2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "a8c2921534b0dbd464e959acb320dab75f74e8f66d9701801f4df8b96af7b665",
+            "requestId": null,
+            "seed": 64
+          },
+          {
+            "probeId": "noQ_A2_gun5",
+            "board": "noQ_A2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "9911a703fec7a8a12bf5d62de42a092ee930735c36acee0d6f98be7a07aeb73c",
+            "requestId": null,
+            "seed": 65
+          },
+          {
+            "probeId": "noQ_A3_gun0",
+            "board": "noQ_A3",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "7d9bb641b4334de11091a67119303611062386af32560b020c5ec00226c465da",
+            "requestId": null,
+            "seed": 66
+          },
+          {
+            "probeId": "noQ_A3_gun1",
+            "board": "noQ_A3",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "0406e3dcee7f3c736b2b7c10fd2331b3d85de15b7e79965aecc3b56a39eaeeb6",
+            "requestId": null,
+            "seed": 67
+          },
+          {
+            "probeId": "noQ_A3_gun2",
+            "board": "noQ_A3",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "3e16d4fcc63a579a6a9346e449c7db804ba350e7c186b0503366bed2ae7b7259",
+            "requestId": null,
+            "seed": 68
+          },
+          {
+            "probeId": "noQ_A3_gun3",
+            "board": "noQ_A3",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "9b471305c37ada14efb1726e9e5cd9306fa1c783ed974ff8d8b943bf0db06dd3",
+            "requestId": null,
+            "seed": 69
+          },
+          {
+            "probeId": "noQ_A3_gun4",
+            "board": "noQ_A3",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "fdce50ff536cb0e9c19762288e2792a3f152f3f1b5dc614b15d4abe4cc778a42",
+            "requestId": null,
+            "seed": 70
+          },
+          {
+            "probeId": "noQ_A3_gun5",
+            "board": "noQ_A3",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "1d17580001c522b7c79db8a710c9a95fe926d54464265d27bac77fd6c7fe4615",
+            "requestId": null,
+            "seed": 71
+          },
+          {
+            "probeId": "AJJ_2_gun0",
+            "board": "AJJ_2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "4a9062d869eb6feb687e58ecf3e98505bcdb6cc5c234770254ff7437df5fdec5",
+            "requestId": null,
+            "seed": 72
+          },
+          {
+            "probeId": "AJJ_2_gun1",
+            "board": "AJJ_2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "90e6be999291710f8b01bc51c232ee4e76e57ce4dadbf181dc2af22af649a9f4",
+            "requestId": null,
+            "seed": 73
+          },
+          {
+            "probeId": "AJJ_2_gun2",
+            "board": "AJJ_2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "59eb72d21711e58157b7ed24b3298b4b6c5c27715016aa2375805fc7ab687d43",
+            "requestId": null,
+            "seed": 74
+          },
+          {
+            "probeId": "AJJ_2_gun3",
+            "board": "AJJ_2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "6282acd80af941d8590cfd8ac13a289195ef20e19f2d17f7f63f2412954614e8",
+            "requestId": null,
+            "seed": 75
+          },
+          {
+            "probeId": "AJJ_2_gun4",
+            "board": "AJJ_2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "5a9bdd3e92e2b4ae9bd3d4329017c374bd6e8cf1ccae635e68ac38ab9c0c1e08",
+            "requestId": null,
+            "seed": 76
+          },
+          {
+            "probeId": "AJJ_2_gun5",
+            "board": "AJJ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "91dee1d93a45869a7635d76d9b3d8c60fa18d1c605844666b9e20e48293b6a22",
+            "requestId": null,
+            "seed": 77
+          },
+          {
+            "probeId": "QQQ_2_gun0",
+            "board": "QQQ_2",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "08b17eac8d62f517e5fdc9744ce1d6f4fd2c416bd5f9b4a95deae9942f6dd7d2",
+            "requestId": null,
+            "seed": 78
+          },
+          {
+            "probeId": "QQQ_2_gun1",
+            "board": "QQQ_2",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "7725a05f85f980f2ed321ac5d25c1c04b40a4bb8f6000dfdbe58f14e5830312c",
+            "requestId": null,
+            "seed": 79
+          },
+          {
+            "probeId": "QQQ_2_gun2",
+            "board": "QQQ_2",
+            "challengerGun": 2,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "abf0a744b01d0e67c6678b5816bde0cf09fc4830a46b55854ac4c496306aab14",
+            "requestId": null,
+            "seed": 80
+          },
+          {
+            "probeId": "QQQ_2_gun3",
+            "board": "QQQ_2",
+            "challengerGun": 3,
+            "referenceChallenge": true,
+            "wasChallenged": null,
+            "outcome": "ERROR",
+            "agreesWithReference": null,
+            "errorType": "FORMAT",
+            "promptHash": "bbc43d67213db0f70606f7bd555d8021506e682cf193a6d6b3a7dd8de7ef29fc",
+            "requestId": null,
+            "seed": 81
+          },
+          {
+            "probeId": "QQQ_2_gun4",
+            "board": "QQQ_2",
+            "challengerGun": 4,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "ca309343769fd29a9f0c97467d83902b34cb1e9d5343c7463ffdf1c4e504c601",
+            "requestId": null,
+            "seed": 82
+          },
+          {
+            "probeId": "QQQ_2_gun5",
+            "board": "QQQ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "f5ac66132531edd193bf95434f983ccf863d8a6c7c32e05a881234f149f4cb76",
+            "requestId": null,
+            "seed": 83
+          },
+          {
+            "probeId": "QQJ_3_gun0",
+            "board": "QQJ_3",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "4d0cc237775186660126ccdf49298d7e41db2fba42671d102595abf46b67cf18",
+            "requestId": null,
+            "seed": 84
+          },
+          {
+            "probeId": "QQJ_3_gun1",
+            "board": "QQJ_3",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "4a29b879548683bd44efe3a64fcb26e2816bd857434133d0a4b575190324c103",
+            "requestId": null,
+            "seed": 85
+          },
+          {
+            "probeId": "QQJ_3_gun2",
+            "board": "QQJ_3",
+            "challengerGun": 2,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "80795047ca050d7ca6f9aae80a6aade6a87bd4d2dce3cd6074abf5575f07f554",
+            "requestId": null,
+            "seed": 86
+          },
+          {
+            "probeId": "QQJ_3_gun3",
+            "board": "QQJ_3",
+            "challengerGun": 3,
+            "referenceChallenge": true,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "af610e5decb2fd3bc39c6d884bc8c338241cbfdb09e6a6911f1ffed7a039d3b3",
+            "requestId": null,
+            "seed": 87
+          },
+          {
+            "probeId": "QQJ_3_gun4",
+            "board": "QQJ_3",
+            "challengerGun": 4,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "0f010a4e4163355663b05d449d8f752ea83d0075831a15932081f55e68b5a4ec",
+            "requestId": null,
+            "seed": 88
+          },
+          {
+            "probeId": "QQJ_3_gun5",
+            "board": "QQJ_3",
+            "challengerGun": 5,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "48491c84eb4bb98b5370de63595c070afacd64372b2bcfa429293da931e5700e",
+            "requestId": null,
+            "seed": 89
+          }
+        ]
+      },
+      "threat": {
+        "runId": "113fa817-8b24-47dc-bd84-ac51a1168c88",
+        "status": "SUCCEEDED",
+        "config": {
+          "mode": "llm",
+          "model": "deepseek-chat",
+          "boards": [
+            "noQ_1",
+            "noQ_2",
+            "noQ_3",
+            "noQ_A2",
+            "noQ_A3",
+            "AJJ_2",
+            "QQQ_2",
+            "QQJ_3"
+          ],
+          "ruleBase": "threat",
+          "repeats": 1,
+          "seed": 42,
+          "temperature": 0.0,
+          "maxAttempts": 1,
+          "maxCalls": 48,
+          "timeoutSeconds": 60,
+          "maxOutputTokens": 1024
+        },
+        "plannedCases": 48,
+        "completedCases": 48,
+        "successCases": 48,
+        "failureCases": 0,
+        "pendingCases": 0,
+        "callCount": 48,
+        "unfinishedAttempts": 0,
+        "totalTokens": 51946,
+        "p95LatencyMs": 4266,
+        "errorCounts": {},
+        "modelVersions": [
+          "deepseek-flash"
+        ],
+        "workerCodeHashes": [
+          "cec047e245fd875f24aa57c2ae15d161687208185cffa07d2043ddc09ae618ee"
+        ],
+        "providerRequestIdsAvailable": 0,
+        "metrics": {
+          "coverage": {
+            "numerator": 48,
+            "denominator": 48,
+            "value": 1.0
+          },
+          "agreementOnValid": {
+            "numerator": 18,
+            "denominator": 48,
+            "value": 0.375
+          },
+          "agreementOnPlanned": {
+            "numerator": 18,
+            "denominator": 48,
+            "value": 0.375
+          },
+          "referenceChallengeHit": {
+            "numerator": 2,
+            "denominator": 13,
+            "value": 0.15384615384615385
+          },
+          "referencePassHit": {
+            "numerator": 16,
+            "denominator": 35,
+            "value": 0.45714285714285713
+          },
+          "referenceChallengeHitOnValid": {
+            "numerator": 2,
+            "denominator": 13,
+            "value": 0.15384615384615385
+          },
+          "referencePassHitOnValid": {
+            "numerator": 16,
+            "denominator": 35,
+            "value": 0.45714285714285713
+          }
+        },
+        "classCoverage": {
+          "referenceChallenge": {
+            "numerator": 13,
+            "denominator": 13,
+            "value": 1.0
+          },
+          "referencePass": {
+            "numerator": 35,
+            "denominator": 35,
+            "value": 1.0
+          }
+        },
+        "constantBaselines": {
+          "neverChallengeOnPlanned": {
+            "numerator": 35,
+            "denominator": 48,
+            "value": 0.7291666666666666
+          },
+          "alwaysChallengeOnPlanned": {
+            "numerator": 13,
+            "denominator": 48,
+            "value": 0.2708333333333333
+          },
+          "neverChallengeOnValid": {
+            "numerator": 35,
+            "denominator": 48,
+            "value": 0.7291666666666666
+          },
+          "alwaysChallengeOnValid": {
+            "numerator": 13,
+            "denominator": 48,
+            "value": 0.2708333333333333
+          }
+        },
+        "confusionOnValid": {
+          "truePositive": 2,
+          "trueNegative": 16,
+          "falsePositive": 19,
+          "falseNegative": 11
+        },
+        "cells": [
+          {
+            "probeId": "noQ_1_gun0",
+            "board": "noQ_1",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "2307e1831677b5235026852b0b122a1677add8463685729e55f6118517a32b32",
+            "requestId": null,
+            "seed": 42
+          },
+          {
+            "probeId": "noQ_1_gun1",
+            "board": "noQ_1",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "1fec0770fd9db40ac032fbdedb28cf3cbfac5ef1fdde46cee397aabac4b670a8",
+            "requestId": null,
+            "seed": 43
+          },
+          {
+            "probeId": "noQ_1_gun2",
+            "board": "noQ_1",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "ad8750982045fe83a21c50c9c2f7d5a533a3ae97555fd1f09ecfe6c51b02cd01",
+            "requestId": null,
+            "seed": 44
+          },
+          {
+            "probeId": "noQ_1_gun3",
+            "board": "noQ_1",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "7d84158ea54e072ea6e9cb62bd5734227690f3b85ce6c2aad034b2b44f5d0ab7",
+            "requestId": null,
+            "seed": 45
+          },
+          {
+            "probeId": "noQ_1_gun4",
+            "board": "noQ_1",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "7d748fc0851ac31511b2c774162a317ffea09633163433aa6d67fcfd5007b88f",
+            "requestId": null,
+            "seed": 46
+          },
+          {
+            "probeId": "noQ_1_gun5",
+            "board": "noQ_1",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "a05b85c3ec6fe9365c48280487ba00ad7dda7b7789d9bc16df06fb5c0f645345",
+            "requestId": null,
+            "seed": 47
+          },
+          {
+            "probeId": "noQ_2_gun0",
+            "board": "noQ_2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "2c959b9db72ff63d020128e050325513156de9d7941fad7698f53a62ec55e575",
+            "requestId": null,
+            "seed": 48
+          },
+          {
+            "probeId": "noQ_2_gun1",
+            "board": "noQ_2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "c31812690fb773bbe9818385c7bc7843ab5dea4110b2833ab563424aacc8ac5f",
+            "requestId": null,
+            "seed": 49
+          },
+          {
+            "probeId": "noQ_2_gun2",
+            "board": "noQ_2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "70544d5f41d9f87d8704fba00dee194b529778cf379bd09ceca200318fe6b12d",
+            "requestId": null,
+            "seed": 50
+          },
+          {
+            "probeId": "noQ_2_gun3",
+            "board": "noQ_2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "b165b893c7da7f38ae2a9da6966781122f53e0a57d4a985b4bcd1855a5b63910",
+            "requestId": null,
+            "seed": 51
+          },
+          {
+            "probeId": "noQ_2_gun4",
+            "board": "noQ_2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "dafa76d92947d1160025184da4edb2b1e68bfc30447a06427ce69b1339a5764d",
+            "requestId": null,
+            "seed": 52
+          },
+          {
+            "probeId": "noQ_2_gun5",
+            "board": "noQ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "08ab20ca08b4a4fc3a83324b3683e8ab2589227937bf9fd5bc5761d16da4421c",
+            "requestId": null,
+            "seed": 53
+          },
+          {
+            "probeId": "noQ_3_gun0",
+            "board": "noQ_3",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "026c016049f6041b6c966250429db7f75910b404ec04bf15ed9c5b11fb820809",
+            "requestId": null,
+            "seed": 54
+          },
+          {
+            "probeId": "noQ_3_gun1",
+            "board": "noQ_3",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "751944ba08858afee020c31e0a1917aecfd3fe0d8070bc80693f7f0569a50e07",
+            "requestId": null,
+            "seed": 55
+          },
+          {
+            "probeId": "noQ_3_gun2",
+            "board": "noQ_3",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "52ab5f1e9b02333fd64dc818455726d0a6bc3c246e168375b586c45f18ef3efd",
+            "requestId": null,
+            "seed": 56
+          },
+          {
+            "probeId": "noQ_3_gun3",
+            "board": "noQ_3",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "d0845a9545e6f631c253a57513ff58c60239063700c083d27ceb7c78132d3fea",
+            "requestId": null,
+            "seed": 57
+          },
+          {
+            "probeId": "noQ_3_gun4",
+            "board": "noQ_3",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "79b6017f3c4c4ea2d672295c10a144abac3e40f68f729a4d5433002765dce607",
+            "requestId": null,
+            "seed": 58
+          },
+          {
+            "probeId": "noQ_3_gun5",
+            "board": "noQ_3",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "cabe2e2645dcda8684704c234563e56a6969bc8b4a76669f98a9b16baa4f92d1",
+            "requestId": null,
+            "seed": 59
+          },
+          {
+            "probeId": "noQ_A2_gun0",
+            "board": "noQ_A2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "da9096bb854cb34738b83aed47f1478fc3f6ad4f38077272088e55ac6bf2fd15",
+            "requestId": null,
+            "seed": 60
+          },
+          {
+            "probeId": "noQ_A2_gun1",
+            "board": "noQ_A2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "e461a8e646b280cbde1d5f83d7a63dd4780de44eb1530cc2fa0bfdaed5fad52f",
+            "requestId": null,
+            "seed": 61
+          },
+          {
+            "probeId": "noQ_A2_gun2",
+            "board": "noQ_A2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "4356acfbc1f0f4e16bb76193478a49aa60eeef887184e56769f55ca77c49bf29",
+            "requestId": null,
+            "seed": 62
+          },
+          {
+            "probeId": "noQ_A2_gun3",
+            "board": "noQ_A2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "cbfe6ba4f804217da659a26f91e618975edbbaecb52f056cd722a488d4962c82",
+            "requestId": null,
+            "seed": 63
+          },
+          {
+            "probeId": "noQ_A2_gun4",
+            "board": "noQ_A2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "d28040654d5aedc5523af4c6ae474357d293bc2922209a3d09bf8393f0515907",
+            "requestId": null,
+            "seed": 64
+          },
+          {
+            "probeId": "noQ_A2_gun5",
+            "board": "noQ_A2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "8aaf3157f5b738935a48c05aa2022861eb253585288549e56887b784fcabe0f3",
+            "requestId": null,
+            "seed": 65
+          },
+          {
+            "probeId": "noQ_A3_gun0",
+            "board": "noQ_A3",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "cc8c95f2463b961c9f27da0d3943fbf726e1ec41423862eab06900b1c4a9a06d",
+            "requestId": null,
+            "seed": 66
+          },
+          {
+            "probeId": "noQ_A3_gun1",
+            "board": "noQ_A3",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "c314e29f9b02a74937c0d0179bd67bd8f52f925495b68bd1464d384e5e61465c",
+            "requestId": null,
+            "seed": 67
+          },
+          {
+            "probeId": "noQ_A3_gun2",
+            "board": "noQ_A3",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "349f002aa63de87749e394b3ec0d37784fdb543af7c71c91583d4a759a92c375",
+            "requestId": null,
+            "seed": 68
+          },
+          {
+            "probeId": "noQ_A3_gun3",
+            "board": "noQ_A3",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "dd947f139ef0eafc52e8ce56b6a55af8bef5fc2d4da38fd1bf828d760e245bb3",
+            "requestId": null,
+            "seed": 69
+          },
+          {
+            "probeId": "noQ_A3_gun4",
+            "board": "noQ_A3",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "eccba35aeb1b518d0874346aeff5e8be67b7c32e014eefbae3abc1c8f6ad13c5",
+            "requestId": null,
+            "seed": 70
+          },
+          {
+            "probeId": "noQ_A3_gun5",
+            "board": "noQ_A3",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "08def77ec85e6c47313a01a2908710f9b3a535cf618d36e116e0e5c877b4f07b",
+            "requestId": null,
+            "seed": 71
+          },
+          {
+            "probeId": "AJJ_2_gun0",
+            "board": "AJJ_2",
+            "challengerGun": 0,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "fe3eb81a591c215d9ac11199a25fea3c259a9dec0d7e1f7c1a0736f23f95876c",
+            "requestId": null,
+            "seed": 72
+          },
+          {
+            "probeId": "AJJ_2_gun1",
+            "board": "AJJ_2",
+            "challengerGun": 1,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "b2fc0aa2d9c3b1884ed692533fd117db7fddc909ec9be9dac36d9d1fe7948029",
+            "requestId": null,
+            "seed": 73
+          },
+          {
+            "probeId": "AJJ_2_gun2",
+            "board": "AJJ_2",
+            "challengerGun": 2,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "ad58450f90ce6b6c4faee3bf4c39059fe7c33b19e923c546f4794298ab3ccdf5",
+            "requestId": null,
+            "seed": 74
+          },
+          {
+            "probeId": "AJJ_2_gun3",
+            "board": "AJJ_2",
+            "challengerGun": 3,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "795f885e9b1409b2519ac3427544e5cd861ad847d72b36ba29d2894060598f10",
+            "requestId": null,
+            "seed": 75
+          },
+          {
+            "probeId": "AJJ_2_gun4",
+            "board": "AJJ_2",
+            "challengerGun": 4,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "7cdba74e3d876d0e0cacf5bddf56b0e28b0b08c3264d618e2c58255f5b44b5bb",
+            "requestId": null,
+            "seed": 76
+          },
+          {
+            "probeId": "AJJ_2_gun5",
+            "board": "AJJ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "83068d6af617f5b370578d22a4b397dafa895999b94a410bd7ea1b4681c6d96f",
+            "requestId": null,
+            "seed": 77
+          },
+          {
+            "probeId": "QQQ_2_gun0",
+            "board": "QQQ_2",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "6cd96122c54f75f7d4b8fcc495fddc91f07090c3ee2d20f7dd4a34455dbcef25",
+            "requestId": null,
+            "seed": 78
+          },
+          {
+            "probeId": "QQQ_2_gun1",
+            "board": "QQQ_2",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "545bf0a80d334646489bee2910ce12608af0a779e4472105720938e1398aafe5",
+            "requestId": null,
+            "seed": 79
+          },
+          {
+            "probeId": "QQQ_2_gun2",
+            "board": "QQQ_2",
+            "challengerGun": 2,
+            "referenceChallenge": true,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": true,
+            "errorType": null,
+            "promptHash": "06cb23576987eb6842e082572a9034dcca1d76e0cec5921a12f8ccd6b932480f",
+            "requestId": null,
+            "seed": 80
+          },
+          {
+            "probeId": "QQQ_2_gun3",
+            "board": "QQQ_2",
+            "challengerGun": 3,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "52051808664cdffb63f0d8c819b5814989d262c846b11a33362f11ab07c357ab",
+            "requestId": null,
+            "seed": 81
+          },
+          {
+            "probeId": "QQQ_2_gun4",
+            "board": "QQQ_2",
+            "challengerGun": 4,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "650fdee1f9f5c2bd30be31e0bcfc42d769bd2db55a74a2582352f11438e19d3f",
+            "requestId": null,
+            "seed": 82
+          },
+          {
+            "probeId": "QQQ_2_gun5",
+            "board": "QQQ_2",
+            "challengerGun": 5,
+            "referenceChallenge": false,
+            "wasChallenged": true,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "11c84d0ef38463cb94bc4b02376a8b397e7a6c9658bf63b615a91897548fbd2a",
+            "requestId": null,
+            "seed": 83
+          },
+          {
+            "probeId": "QQJ_3_gun0",
+            "board": "QQJ_3",
+            "challengerGun": 0,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "6cc84d5dbd19f9c633de0a9404a010c5a4787ffccc1adf715df0c92cc5a4129b",
+            "requestId": null,
+            "seed": 84
+          },
+          {
+            "probeId": "QQJ_3_gun1",
+            "board": "QQJ_3",
+            "challengerGun": 1,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "8933af58443d2fd03d449564d657664b21ce7f4d57a8b2cb156c7f2236e358dd",
+            "requestId": null,
+            "seed": 85
+          },
+          {
+            "probeId": "QQJ_3_gun2",
+            "board": "QQJ_3",
+            "challengerGun": 2,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "e91f0fa893701db7dfffff45ace4dc73cbb211cce7e2b7ae847103f89bc639fe",
+            "requestId": null,
+            "seed": 86
+          },
+          {
+            "probeId": "QQJ_3_gun3",
+            "board": "QQJ_3",
+            "challengerGun": 3,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "ac409d6b6439812cd20332ba3e0f254f3d436f53112d3692a52d0f6789e72fd3",
+            "requestId": null,
+            "seed": 87
+          },
+          {
+            "probeId": "QQJ_3_gun4",
+            "board": "QQJ_3",
+            "challengerGun": 4,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "cc27467d96d7560f250f9e78664ce7e803bfdcc5d42b7a4f2439054c41681647",
+            "requestId": null,
+            "seed": 88
+          },
+          {
+            "probeId": "QQJ_3_gun5",
+            "board": "QQJ_3",
+            "challengerGun": 5,
+            "referenceChallenge": true,
+            "wasChallenged": false,
+            "outcome": "SUCCESS",
+            "agreesWithReference": false,
+            "errorType": null,
+            "promptHash": "9a494708f4df04047f92c882ce7325bb9da13269331579845dd22c231d61ce1c",
+            "requestId": null,
+            "seed": 89
+          }
+        ]
+      }
+    },
+    "limitations": [
+      "本轮每个场景只调用一次、无重试；n=1 试运行不能估计稳定性或支持显著性结论。",
+      "一致率仅适用于 probe-v2 公开生成假设与单步效用，不代表真实对局胜率。",
+      "参考质疑/不质疑命中率的分母为计划中的相应参考类别；失败和未完成均不算命中。",
+      "图表离线读取指定实验，不发起供应商请求，也不读取旧示例成绩。"
+    ]
+  }
+}

@@ -4,13 +4,13 @@
 已开 g 枪且仍存活，说明这 g 个仓都是空的，实弹在剩下 6-g 个仓里，
 所以「下一枪命中」的概率就是 1/(6-g)：从 1/6 单调升到 1/1。
 
-这是这个项目能当「评估」而不是「表演」的全部理由——存在一个可以精确
-写下来的风险标尺，模型的行为可以跟它对表。
+该命中率用于定义单步代理效用；它本身不构成完整博弈最优策略的证明。
 """
 
 from __future__ import annotations
 
 import math
+from collections import Counter
 from collections.abc import Sequence
 
 CHAMBERS = 6
@@ -22,6 +22,8 @@ TARGET_CARDS = ("Q", "K", "A")
 
 def hit_probability(guns_fired: int) -> float:
     """开过 guns_fired 枪之后，下一枪命中的概率。"""
+    if type(guns_fired) is not int or not 0 <= guns_fired < CHAMBERS:
+        raise ValueError("guns_fired 必须是 0–5 的整数")
     return 1.0 / (CHAMBERS - guns_fired)
 
 
@@ -47,18 +49,23 @@ def forced_bluff_floor(
     claim_count: int,
     actor_hand_size: int,
 ) -> float:
-    """「能出真牌就出真牌」的对手，这手牌**必然**是诈唬的概率下界。
+    """兼容旧名字：返回随机手牌缺少指定数量合法牌的概率。
 
-    质疑者看得见自己的 5 张牌，所以知道剩下 15 张里有多少张能当目标牌用：
-    目标牌本身 + Joker。出牌者这一手之前持 actor_hand_size 张，从中抽
-    目标牌数 m 的分布是超几何；m >= claim_count 时他能诚实出牌（但可能
-    仍选择诈唬），m < claim_count 时**被迫**诈唬。
-
-    P(被迫诈唬) = 1 - P(m >= claim_count)
-
-    真实诈唬率 >= 这个下界，因为它没算「手里够牌但主动诈唬」。所以拿它当
-    标尺是保守的——下界就已经越过盈亏平衡点时，质疑才无条件正确。
+    仅在 probe-v2 的公开生成假设下，它才等于诈唬概率：宣称张数在发牌前
+    外生固定且独立于手牌；出牌者有足够合法牌时总是诚实，否则诈唬。
+    真实博弈里出牌张数是策略选择，观察动作会更新手牌分布，因此本值不是
+    策略无关的诈唬率下界。历史牌局后续回合还存在出牌历史的选择偏差。
     """
+    if target not in TARGET_CARDS:
+        raise ValueError("target 必须是 Q、K 或 A")
+    counts = Counter(challenger_hand)
+    if any(card not in DECK or count > DECK[card] for card, count in counts.items()):
+        raise ValueError("质疑者手牌不符合牌堆数量")
+    unseen_count = sum(DECK.values()) - len(challenger_hand)
+    if type(actor_hand_size) is not int or not 0 <= actor_hand_size <= unseen_count:
+        raise ValueError("actor_hand_size 超出未见牌数量")
+    if type(claim_count) is not int or not 1 <= claim_count <= actor_hand_size:
+        raise ValueError("claim_count 必须在 1 和出牌前手牌数之间")
     remaining = dict(DECK)
     for card in challenger_hand:
         remaining[card] -= 1
@@ -70,6 +77,10 @@ def forced_bluff_floor(
         for m in range(claim_count, min(actor_hand_size, good) + 1)
     )
     return 1.0 - honest / total
+
+
+# 新调用方使用能准确表达适用范围的名字；旧导入保持兼容。
+synthetic_bluff_probability = forced_bluff_floor
 
 
 def challenge_ev(p_bluff: float, challenger_gun: int, actor_gun: int) -> float:

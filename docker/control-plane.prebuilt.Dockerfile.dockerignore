@@ -1,0 +1,4 @@
+**
+!control-plane/
+!control-plane/target/
+!control-plane/target/liars-eval-control-plane-0.1.0.jar

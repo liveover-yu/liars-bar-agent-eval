@@ -1,6 +1,7 @@
 import random
 import json
 import re
+from collections import Counter
 from typing import List, Dict
 from llm_client import LLMClient
 
@@ -8,6 +9,45 @@ RULE_BASE_PATH = "prompt/rule_base.txt"
 PLAY_CARD_PROMPT_TEMPLATE_PATH = "prompt/play_card_prompt_template.txt"
 CHALLENGE_PROMPT_TEMPLATE_PATH = "prompt/challenge_prompt_template.txt"
 REFLECT_PROMPT_TEMPLATE_PATH = "prompt/reflect_prompt_template.txt"
+
+
+class ModelOutputError(ValueError):
+    """模型已返回内容，但输出不符合动作契约。"""
+
+
+def parse_action(content: str, action: str) -> Dict:
+    """解析 JSON 动作；不执行任何游戏状态变更。"""
+    if not isinstance(content, str):
+        raise ModelOutputError("模型内容必须是字符串")
+    candidate = content.strip()
+    if candidate.startswith("```"):
+        match = re.fullmatch(r"```(?:json)?\s*(.*?)\s*```", candidate, re.DOTALL | re.IGNORECASE)
+        if not match:
+            raise ModelOutputError("JSON 代码围栏不完整")
+        candidate = match.group(1)
+    try:
+        result = json.loads(candidate)
+    except json.JSONDecodeError as exc:
+        raise ModelOutputError("JSON 无法解析") from exc
+    if not isinstance(result, dict):
+        raise ModelOutputError("动作必须是 JSON 对象")
+    if action == "play":
+        cards = result.get("played_cards")
+        if not isinstance(cards, list) or not 1 <= len(cards) <= 3:
+            raise ModelOutputError("played_cards 必须是包含 1–3 张牌的列表")
+        if not all(isinstance(card, str) for card in cards):
+            raise ModelOutputError("每张牌必须是字符串")
+        if not all(isinstance(result.get(key), str) for key in ("behavior", "play_reason")):
+            raise ModelOutputError("behavior 和 play_reason 必须是字符串")
+    elif action == "challenge":
+        if type(result.get("was_challenged")) is not bool:
+            raise ModelOutputError("was_challenged 必须是布尔值")
+        if not isinstance(result.get("challenge_reason"), str):
+            raise ModelOutputError("challenge_reason 必须是字符串")
+    else:
+        raise ValueError(f"未知动作类型: {action}")
+    return result
+
 
 class Player:
     def __init__(self, name: str, model_name: str, llm_client=None):
@@ -94,42 +134,24 @@ class Player:
             current_cards=current_cards
         )
         
-        # 尝试获取有效的JSON响应，最多重试五次
+        # 网络、鉴权、限流错误由客户端/调用方治理，不归为格式失败。
         for attempt in range(5):
-            # 每次都发送相同的原始prompt
-            messages = [
-                {"role": "user", "content": prompt}
-            ]
-            
+            messages = [{"role": "user", "content": prompt}]
+            content, reasoning_content = self.llm_client.chat(messages, model=self.model_name)
             try:
-                content, reasoning_content = self.llm_client.chat(messages, model=self.model_name)
-                
-                # 尝试从内容中提取JSON部分
-                json_match = re.search(r'({[\s\S]*})', content)
-                if json_match:
-                    json_str = json_match.group(1)
-                    result = json.loads(json_str)
-                    
-                    # 验证JSON格式是否符合要求
-                    if all(key in result for key in ["played_cards", "behavior", "play_reason"]):
-                        # 确保played_cards是列表
-                        if not isinstance(result["played_cards"], list):
-                            result["played_cards"] = [result["played_cards"]]
-                        
-                        # 确保选出的牌是有效的（从手牌中选择1-3张）
-                        valid_cards = all(card in self.hand for card in result["played_cards"])
-                        valid_count = 1 <= len(result["played_cards"]) <= 3
-                        
-                        if valid_cards and valid_count:
-                            # 从手牌中移除已出的牌
-                            for card in result["played_cards"]:
-                                self.hand.remove(card)
-                            return result, reasoning_content
-                                
-            except Exception as e:
-                # 仅记录错误，不修改重试请求
-                print(f"尝试 {attempt+1} 解析失败: {str(e)}")
-        self.format_failures["choose_cards_to_play"] += 1
+                result = parse_action(content, "play")
+                if Counter(result["played_cards"]) - Counter(self.hand):
+                    raise ModelOutputError("出牌多重集超出当前手牌")
+                remaining = list(self.hand)
+                for card in result["played_cards"]:
+                    remaining.remove(card)
+            except ModelOutputError as exc:
+                self.format_failures["choose_cards_to_play"] += 1
+                print(f"尝试 {attempt+1} 动作无效: {exc}")
+                continue
+            # 所有字段及数量验证成功后才提交，失败重试不消耗手牌。
+            self.hand[:] = remaining
+            return result, reasoning_content
         raise RuntimeError(f"玩家 {self.name} 的choose_cards_to_play方法在多次尝试后失败")
 
     def decide_challenge(self,
@@ -178,25 +200,14 @@ class Player:
                 {"role": "user", "content": prompt}
             ]
             
+            content, reasoning_content = self.llm_client.chat(messages, model=self.model_name)
             try:
-                content, reasoning_content = self.llm_client.chat(messages, model=self.model_name)
-                
-                # 解析JSON响应
-                json_match = re.search(r'({[\s\S]*})', content)
-                if json_match:
-                    json_str = json_match.group(1)
-                    result = json.loads(json_str)
-                    
-                    # 验证JSON格式是否符合要求
-                    if all(key in result for key in ["was_challenged", "challenge_reason"]):
-                        # 确保was_challenged是布尔值
-                        if isinstance(result["was_challenged"], bool):
-                            return result, reasoning_content
-                
-            except Exception as e:
-                # 仅记录错误，不修改重试请求
-                print(f"尝试 {attempt+1} 解析失败: {str(e)}")
-        self.format_failures["decide_challenge"] += 1
+                result = parse_action(content, "challenge")
+            except ModelOutputError as exc:
+                self.format_failures["decide_challenge"] += 1
+                print(f"尝试 {attempt+1} 动作无效: {exc}")
+                continue
+            return result, reasoning_content
         raise RuntimeError(f"玩家 {self.name} 的decide_challenge方法在多次尝试后失败")
 
     def reflect(self, alive_players: List[str], round_base_info: str, round_action_info: str, round_result: str) -> None:

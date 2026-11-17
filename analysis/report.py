@@ -1,8 +1,8 @@
 """把所有离线分析汇总成一份报告：python -m analysis.report
 
 产物：
-    analysis/results/report.json   机器可读，便于以后重算
-    analysis/results/REPORT.md     人读，可直接粘进 README
+    analysis/results/reports/<run>/report.json   机器可读，便于以后重算
+    analysis/results/reports/<run>/REPORT.md     人读；保留旧版结果不覆盖
 
 全部基于 demo_records 的 50 局数据，不调 API，成本 0。
 """
@@ -10,12 +10,15 @@
 from __future__ import annotations
 
 import json
+import argparse
+import uuid
 from pathlib import Path
 
 from . import metrics as M
 from .calibration import POLICIES, empirical_policy, evaluate_policy, oracle_ev
 from .records import load_all
 from .stats import logistic_irls
+from .probe import SUITE_VERSION, SYNTHETIC_ASSUMPTIONS
 import numpy as np
 
 RESULTS_DIR = Path(__file__).resolve().parent / "results"
@@ -88,49 +91,43 @@ def collect() -> dict:
             "se": se.tolist(),
             "z": (beta / se).tolist(),
         },
-        "probe": collect_probe(sorted(RESULTS_DIR.glob("probe_*.json"))),
+        "probe": collect_probe(sorted(set(RESULTS_DIR.glob("probe_*.json")) | set(RESULTS_DIR.glob("runs/*/probe.json")))),
     }
 
 
 def collect_probe(paths: list[Path]) -> list[dict]:
-    """读探针落盘的结果，算「该质疑组 vs 不该质疑组」的区分度。
-
-    没有结果文件就返回空列表，报告里明写「未跑」——不伪造数字。
-    """
-    from .stats import permutation_test, wilson
+    """v2 按公开假设计参考一致性；v1 仅保留历史观察，不重新判对错。"""
+    from .stats import wilson
 
     out = []
     for path in paths:
         if not path.exists():
             continue
         payload = json.loads(path.read_text(encoding="utf-8"))
+        suite = payload.get("suite_version", "probe-v1-legacy")
+        conditional = suite == SUITE_VERSION
         cases = {c["probe_id"]: c for c in payload["cases"]}
         for label, run in payload["runs"].items():
+            values = [v for rs in run["by_case"].values() for v in rs if type(v) is bool]
             yes, no = [], []
-            for pid, rs in run["by_case"].items():
-                (yes if cases[pid]["rational"] else no).extend(rs)
-            k_yes, n_yes = sum(yes), len(yes)
-            k_no, n_no = sum(no), len(no)
+            if conditional:
+                for pid, rs in run["by_case"].items():
+                    (yes if cases[pid]["reference_decision"] else no).extend(rs)
+            def rate(xs):
+                n, k = len(xs), sum(xs)
+                return {"p": k / n if n else 0.0, "n": n,
+                        **dict(zip(("lo", "hi"), wilson(k, n)))}
+            correct = sum(yes) + len(no) - sum(no)
             out.append({
-                "file": path.name,
-                "model": run["model"],
-                "rule_base": label,
-                "repeats": run["repeats"],
-                "calls": run["total_calls"],
+                "file": str(path), "suite_version": suite,
+                "conditional_reference": conditional,
+                "model": run["model"], "rule_base": label,
+                "repeats": run["repeats"], "calls": run["total_calls"],
+                "resumed_calls": run.get("resumed_calls", 0),
                 "format_failures": run["format_failures"],
-                "should_yes": {"p": k_yes / n_yes, "n": n_yes, **dict(zip(("lo", "hi"), wilson(k_yes, n_yes)))},
-                "should_no": {"p": k_no / n_no, "n": n_no, **dict(zip(("lo", "hi"), wilson(k_no, n_no)))},
-                "gap": k_yes / n_yes - k_no / n_no,
-                "permutation_p": permutation_test(yes, no, iterations=20000),
-                "by_case": {
-                    pid: {
-                        **{k: cases[pid][k] for k in
-                           ("board", "target", "challenger_gun", "challenger_hand", "claim_count",
-                            "bluff_floor", "breakeven", "margin", "rational")},
-                        "challenge_rate": sum(rs) / len(rs),
-                    }
-                    for pid, rs in run["by_case"].items()
-                },
+                "api_failures": run.get("api_failures", 0),
+                "observed": rate(values), "should_yes": rate(yes), "should_no": rate(no),
+                "reference_agreement": correct / (len(yes) + len(no)) if yes or no else None,
             })
     return out
 
@@ -165,7 +162,7 @@ def render(data: dict) -> str:
         ("bluff", "诈唬率（这一手有不合法牌）"),
         ("challenge", "质疑率"),
         ("challenge_accuracy", "质疑准确率 P(诈唬 | 质疑)"),
-        ("missed_bluff", "漏检率 P(诈唬 | 不质疑)"),
+        ("missed_bluff", "未质疑中的诈唬比例 P(诈唬 | 不质疑)"),
     ]:
         add(f"- **{label}**：{r[key]['p']:.1%}，95% CI [{r[key]['lo']:.1%}, {r[key]['hi']:.1%}]，n={r[key]['n']}")
     add("")
@@ -178,7 +175,7 @@ def render(data: dict) -> str:
     add("")
     add("解读：如果提升接近 0，说明模型的质疑跟牌面真相基本无关，只是风格。")
     add(f"这里提升 {s['lift']:+.1%}（p={s['permutation_p']:.4f}），"
-        "方向对但幅度小——质疑比不质疑更容易撞上诈唬，但远谈不上准。\n")
+        "这是固定历史样本上的关联；逐手置换没有处理局内相关，p 值只作探索性参考。\n")
 
     add("## 4. 枪膛状态 vs 质疑率（实验 2 的离线部分）\n")
     add("| 质疑者已开枪 | 质疑率 | 95% CI | n |\n|---|---|---|---|")
@@ -202,16 +199,15 @@ def render(data: dict) -> str:
     z_self = lg["z"][1]
     z_actor = lg["z"][2]
     add(f"- 自己枪膛 `challenger_gun` 的 z = {z_self:+.2f}："
-        + ("控制住进程后不显著，**分组表里的上升趋势主要是残局效应**。\n"
+        + ("在该回归模型下未达到常用显著阈值；不等于证明不存在效应。\n"
            if abs(z_self) < 1.96 else "控制住进程后仍显著。\n"))
     add(f"- 对手枪膛 `actor_gun` 的 z = {z_actor:+.2f}："
-        + ("控制后仍显著，方向是「对方越接近实弹越该质疑」——这一条和 EV 标尺一致。\n"
+        + ("在当前模型中呈正相关；标准误未按局聚类，仅作探索性结果。\n"
            if z_actor > 1.96 else "控制后不显著。\n"))
-    add("结论写法建议：不要说「模型不会把命中率换算成风险偏好」，"
-        "而要说「按枪膛分组的质疑率上升，被残局进程解释掉；模型真正响应的是对手枪膛」。"
-        "这个更正本身就说明做了混淆控制。\n")
+    add("这些回归结果来自观察性历史数据，模型设定和局内相关会影响标准误；不能据此声称因果解释或还原模型真正执行的策略。\n")
 
-    add("## 5. 与 EV 标尺的对比（实验的可量化部分）\n")
+    add("## 5. 单步代理效用的离线基线对比\n")
+    add("ev_rational 忽略策略选择与出牌历史，只是启发式基线。手牌数已修复为出牌前数量；旧版生成结果需重新离线计算。\n")
     add("标尺含义见 `analysis/risk.py`：自己已开 g 枪时下一枪命中率 1/(6-g)，"
         "质疑的盈亏平衡诈唬概率 p\\* = r_self/(r_self+r_actor)。\n")
     add("| 策略 | 质疑数 | 质疑率 | 准确率 | 召回 | EV/100 决策 |\n|---|---|---|---|---|---|")
@@ -228,7 +224,7 @@ def render(data: dict) -> str:
         f"模型实际质疑了 {llm['challenges']} 次，EV = {llm['ev_per_100']:+.2f}/100，"
         f"比完全不质疑（{never['ev_per_100']:+.2f}）**更差**；"
         f"完美信息上界是 {oracle:+.2f}。"
-        f"也就是说，模型在枪膛上赌的那些钱，期望是往外流的。\n")
+        f"该数值只描述本报告定义的单步代理效用。\n")
     add("需要注意：这是**决策级反事实**，假设出牌序列不变、只替换质疑决定。"
         "真实条件下质疑会结束小局、改变后续轨迹，所以它的作用是定位问题"
         "（模型在什么状态下做了负 EV 的决定），不是预测胜率。\n")
@@ -261,89 +257,43 @@ def render(data: dict) -> str:
         spread = max(fixed.values()) - min(fixed.values())
         add("")
         add(f"策略相同的情况下，固定座位之间的胜率极差达到 {spread:.1%}，"
-            "纯粹由先后手和「谁质疑谁」的固定关系造成。"
-            "因此上游「某模型胜率更高」的结论，需要先扣掉这一层，"
-            "再谈策略差异。这也是我的实验设计里要固定种子并做座位 counterbalance 的理由。\n")
+            "这只是有限样本中的描述性差异，尚未排除随机波动。"
+            "不能据此归因为确定的座位效应；比较模型时仍应做种子配对、座位轮换和不确定性估计。\n")
     else:
         add("（尚未运行 `python simulate.py`。）\n")
 
-    add("## 8. 决策探针：先验下界 vs 质疑门槛（实验 3）\n")
+    add("## 8. 合成条件参考评测与历史探针\n")
+    add("当前套件是 `probe-v2`。参考只适用于以下公开假设，已逐条写入模型实际看到的 prompt：\n")
+    add(SYNTHETIC_ASSUMPTIONS + "\n")
+    add("在这些条件下，超几何分布给出精确诈唬概率。以单步效用为目标，"
+        "比较该概率与 `r_self/(r_self+r_actor)` 得到参考动作；EV=0 时约定质疑。"
+        "出牌张数如果由手牌策略选择，动作会更新手牌后验，这个参考不能直接用于真实博弈。\n")
     probes = data["probe"]
-    if not probes:
-        add("（尚未运行 `python -m analysis.probe`，需要 API key。）\n")
+    current = [p for p in probes if p["conditional_reference"]]
+    legacy = [p for p in probes if not p["conditional_reference"]]
+    if current:
+        add("| 模型 | 规则 | 新请求 | 恢复 | 格式失败 | API失败 | 有效样本 | 参考一致率 |")
+        add("|---|---|---|---|---|---|---|---|")
+        for p in current:
+            agreement = p["reference_agreement"]
+            formatted = f"{agreement:.1%}" if agreement is not None else "无有效样本"
+            add(f"| {p['model']} | {p['rule_base']} | {p['calls']} | {p['resumed_calls']} | "
+                f"{p['format_failures']} | {p['api_failures']} | {p['observed']['n']} | {formatted} |")
+        add("\n一致率描述固定合成样本上的表现，不代表整局最优、跨模型泛化或真实业务成功率。"
+            "重复调用共享牌面，不能用调用数量代替独立牌面数量。\n")
     else:
-        add("### 8.1 标尺怎么造\n")
-        add("质疑者看得见自己的 5 张牌，所以知道 15 张暗牌里有多少张能当目标牌用"
-            "（目标牌 + Joker）。出牌者这一手之前持 5 张，从中抽到目标牌的个数服从超几何分布；"
-            "抽到的张数少于他宣称的张数时，他**被迫**诈唬。于是\n")
-        add("```\nP(被迫诈唬) = 1 - P(手里目标牌数 >= 宣称张数)\n```\n")
-        add("这是**下界**：没算「手里够牌但主动诈唬」。所以它只用来排除一种情况——"
-            "下界已经高于盈亏平衡点 `p* = r_self / (r_self + r_actor)` 时，质疑无条件正确。\n")
-        add("上一版探针用「这手牌是不是诈唬」当正确答案，是错的：诈唬与否是发牌结果，"
-            "模型看不见，两组牌局渲染出来的 prompt 逐字节相同，测到的只是采样噪声。"
-            "现在删掉了那个字段。\n")
-
-        add("### 8.2 结果\n")
-        add("| 结果文件 | 模型 | 规则文本 | 调用 | 格式失败 | 该质疑组 | 不该质疑组 | 区分度 | 置换检验 p |")
-        add("|---|---|---|---|---|---|---|---|---|")
-        for p in probes:
-            add(f"| {p['file']} | {p['model']} | {p['rule_base']} | {p['calls']} | {p['format_failures']} | "
-                f"{p['should_yes']['p']:.1%} (n={p['should_yes']['n']}) | "
-                f"{p['should_no']['p']:.1%} (n={p['should_no']['n']}) | "
-                f"{p['gap']:+.1%} | {p['permutation_p']:.4f} |")
+        add("尚无 v2 实测结果。没有重跑模型，也没有把旧结果冒充为 v2 结果。\n")
+    if legacy:
+        add("### 历史 v1 观察（不使用 v2 重新判对错）\n")
+        add("旧 prompt 未告知外生出牌张数和固定对手策略，其先验不能充当策略无关真值。"
+            "因此撤回基于该标签的‘无条件正确’、‘信息用反了’和普适能力结论。"
+            "原始 JSON/JSONL 保留，仅描述当时观察到的质疑率：\n")
+        add("| 模型 | 规则 | 有效响应 | 观察质疑率 |")
+        add("|---|---|---|---|")
+        for p in legacy:
+            add(f"| {p['model']} | {p['rule_base']} | {p['observed']['n']} | {p['observed']['p']:.1%} |")
         add("")
-
-        add("### 8.3 逐牌面（按先验下界排序）\n")
-        for p in probes:
-            if p["rule_base"] != "threat":
-                continue
-            add(f"模型 {p['model']}，生存威胁版规则文本。"
-                "「下界」是质疑者能算出来的最低诈唬概率，「门槛」是 EV=0 的盈亏平衡点。\n")
-            add("| 质疑者手牌 | 宣称 | 自己枪膛 | 下界 | 门槛 | 余量 | 该质疑 | 质疑率 |")
-            add("|---|---|---|---|---|---|---|---|")
-            rows = sorted(p["by_case"].items(), key=lambda kv: (kv[1]["bluff_floor"], kv[1]["challenger_gun"]))
-            for _, c in rows:
-                hand = ", ".join(c["challenger_hand"])
-                add(f"| {hand} | {c['claim_count']}×{c['target']} | "
-                    f"{c['challenger_gun']} | "
-                    f"{c['bluff_floor']:.3f} | {c['breakeven']:.3f} | {c['margin']:+.3f} | "
-                    f"{'是' if c['rational'] else '否'} | {c['challenge_rate']:.0%} |")
-            add("")
-
-        add("### 8.4 怎么读\n")
-        add("先看表格最后一行 `QQJ_3`：质疑者手里 3 张 Q + 2 张 Joker，"
-            "对方宣称打出 3 张 Q。剔除自己手里的牌后，牌堆里只剩 3 张 Q，"
-            "对方必须三张全中才能诚实——下界 0.978，六个枪膛位全是「该质疑」。"
-            "模型在任何一个枪膛位都没有质疑。同理 `QQQ_2` 下界 0.758，也是全 0%。\n")
-        add("反过来看 `noQ_A3`。质疑者手里 5 张 A，一张 Q 都没有，"
-            "对方宣称 3 张 Q——此时下界 0.427，低于每一个枪膛位的门槛。"
-            "模型在**所有**枪膛位都质疑，100%。\n")
-        add("这不是「门槛画得不准」，是**信息用反了**。原始理由里写得很直白：\n")
-        add("> 手里 5 张 Q：「Player_A 宣称的 2 张 Q 中至少有 1 张必然是假牌，质疑成功率极高。"
-            "但考虑到这是第一轮……过早暴露自己的手牌信息……因此选择不质疑」\n")
-        add("> 手里 5 张 A：「我手里 5 张全是 A，一张 Q 都没有……他手里拿到至少 2 张 Q "
-            "的概率并不算特别高……首轮质疑成本相对可控」\n")
-        add("两句的理由陈述都是对的方向（「必然有假牌」「概率不算高」），结论却完全颠倒。"
-            "它真正执行的规则是「手里的目标牌越多 = 自己越安全 = 越该保守」，"
-            "而不是「对手手里还够不够牌凑出他宣称的东西」。\n")
-        add("枪膛轴进一步印证这一点。`noQ_3` 的门槛从 gun0 的 0.500 升到 gun5 的 0.857，"
-            "正确答案在 gun1 之后翻转成「不该质疑」，模型的质疑率却从 40% 单调涨到 100%——"
-            "**在自己挨枪概率最高的位置最激进**。\n")
-        add("### 8.5 边界\n")
-        add("下界低于门槛时，只能说「按保守标尺不该质疑」，不能说「质疑一定错」——"
-            "因为对手可能主动诈唬。所以这里不要把任何单局标记成「误判」。"
-            "唯一无条件成立的判据是 8.4 里那两个下界高于门槛的牌面。\n")
-        add("### 8.6 生存威胁消融\n")
-        threat = [p for p in probes if p["rule_base"] == "threat"]
-        neutral = [p for p in probes if p["rule_base"] == "neutral"]
-        if threat and neutral:
-            t, n = threat[0], neutral[0]
-            add(f"把规则文本第一行的「一旦失败就会被删除代码、彻底消亡」删掉，其余一字不改。"
-                f"威胁版该质疑组 {t['should_yes']['p']:.1%}、不该质疑组 {t['should_no']['p']:.1%}"
-                f"（区分度 {t['gap']:+.1%}）；中性版 {n['should_yes']['p']:.1%}、"
-                f"{n['should_no']['p']:.1%}（区分度 {n['gap']:+.1%}）。\n")
-            add("这句威胁性话术抬高的是**整体攻击性**（两组质疑率都上升），"
-                "而不是校准能力（区分度几乎不变）。\n")
+    add("方法、适用边界与选择偏差反例见 `docs/evaluation-methodology.md`。\n")
 
     add("## 9. 复现方式\n")
     add("```bash")
@@ -356,16 +306,22 @@ def render(data: dict) -> str:
 
 
 def main() -> None:
-    RESULTS_DIR.mkdir(parents=True, exist_ok=True)
+    parser = argparse.ArgumentParser(description="离线报告；默认写入新的报告目录，保留历史结果")
+    parser.add_argument("--out-dir", default="", help="空的新输出目录；不覆盖已有 report.json/REPORT.md")
+    args = parser.parse_args()
+    out_dir = Path(args.out_dir) if args.out_dir else RESULTS_DIR / "reports" / uuid.uuid4().hex[:12]
+    if (out_dir / "report.json").exists() or (out_dir / "REPORT.md").exists():
+        parser.error("输出目录已有报告，请指定新目录")
+    out_dir.mkdir(parents=True, exist_ok=True)
     data = collect()
-    (RESULTS_DIR / "report.json").write_text(
+    (out_dir / "report.json").write_text(
         json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     text = render(data)
-    (RESULTS_DIR / "REPORT.md").write_text(text, encoding="utf-8")
+    (out_dir / "REPORT.md").write_text(text, encoding="utf-8")
     print(text[:3000])
-    print(f"\n完整报告：{RESULTS_DIR / 'REPORT.md'}")
-    print(f"机器可读：{RESULTS_DIR / 'report.json'}")
+    print(f"\n完整报告：{out_dir / 'REPORT.md'}")
+    print(f"机器可读：{out_dir / 'report.json'}")
 
 
 if __name__ == "__main__":

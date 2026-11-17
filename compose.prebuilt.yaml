@@ -1,0 +1,13 @@
+# Run with: docker compose -f compose.yaml -f compose.prebuilt.yaml up --build -d --scale worker=2
+# JAVA_RUNTIME_IMAGE / PYTHON_IMAGE can select preloaded, compatible official runtimes.
+services:
+  control-plane:
+    build:
+      dockerfile: docker/control-plane.prebuilt.Dockerfile
+      args:
+        JAVA_RUNTIME_IMAGE: ${JAVA_RUNTIME_IMAGE:-eclipse-temurin:21-jre}
+  worker:
+    build:
+      args:
+        PYTHON_IMAGE: ${PYTHON_IMAGE:-python:3.11-slim}
+        PIP_INDEX_URL: ${PIP_INDEX_URL:-https://pypi.org/simple}
